@@ -1,0 +1,21 @@
+{
+    "modListVersion": 2,
+    "modList": [{
+        "modid": "terrafirmapunktweaks",
+        "name": "TerraFirmaPunk Tweaks",
+        "description": "Various tweaks for TerraFirmaPunk.",
+        "version": "${mod_version}",
+        "mcversion": "${minecraft_version}",
+        "url": "",
+        "updateUrl": "",
+        "authorList": [""],
+        "credits": "",
+        "logoFile": "",
+        "screenshots": [],
+        "parent": "",
+        "requiredMods": [],
+        "dependencies": ["terrafirmacraft"],
+        "dependants": [  ],
+        "useDependencyInformation": "true"
+    }]
+}

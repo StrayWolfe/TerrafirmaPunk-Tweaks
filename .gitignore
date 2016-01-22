@@ -1,0 +1,19 @@
+## gradle
+/.gradle
+/build
+/gradle
+/gradlew
+/gradlew.bat
+
+## ForgeGradle
+/runClient
+/runServer
+
+## eclipse
+/eclipse
+/.settings
+/.metadata
+/.classpath
+/.project
+/bin
+/libs
