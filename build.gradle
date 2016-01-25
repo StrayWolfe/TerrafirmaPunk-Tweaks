@@ -59,7 +59,20 @@ allprojects
     }
 }
 
-dependencies {
+repositories 
+{
+    maven { 
+    	// the repo from which to get NEI and stuff 
+        name 'CB Repo'
+        url "http://chickenbones.net/maven/"
+    }
+}
+ 
+dependencies 
+{
+	compile "codechicken:CodeChickenCore:1.7.10-1.0.4.35:dev"
+	compile "codechicken:CodeChickenLib:1.7.10-1.1.3.127:dev"
+	compile "codechicken:NotEnoughItems:1.7.10-1.0.4.95:dev"
 }
 
 //Creates a compiled de-obfuscated jar

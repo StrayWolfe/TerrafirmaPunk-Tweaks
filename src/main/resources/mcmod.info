@@ -14,7 +14,7 @@
         "screenshots": [],
         "parent": "",
         "requiredMods": [],
-        "dependencies": ["terrafirmacraft"],
+        "dependencies": ["terrafirmacraft", "steamcraft2"],
         "dependants": [  ],
         "useDependencyInformation": "true"
     }]
