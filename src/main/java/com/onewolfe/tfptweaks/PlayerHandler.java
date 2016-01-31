@@ -5,11 +5,15 @@ import java.util.Random;
 import com.bioxx.tfc.api.TFCBlocks;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraftforge.event.entity.living.LivingHealEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 
 public class PlayerHandler 
@@ -32,5 +36,24 @@ public class PlayerHandler
 			
 			player.inventory.addItemStackToInventory(new ItemStack(TFCBlocks.chest, 1, 0));
 		}
+	}
+	
+	@SubscribeEvent
+	public void onDamaged(LivingHurtEvent event)
+	{
+		if(event.ammount <= 20 && event.entity instanceof EntityPlayer)
+		{
+			event.ammount = event.ammount * 50;
+			
+			if(event.source == DamageSource.magic && (event.entityLiving.getHealth() - event.ammount) <= 0)
+				event.setCanceled(true);
+		}
+	}
+	
+	@SubscribeEvent
+	public void onHeal(LivingHealEvent event)
+	{
+		if(event.amount > 1 && event.amount < 9)
+			event.amount = event.amount * 50;
 	}
 }
