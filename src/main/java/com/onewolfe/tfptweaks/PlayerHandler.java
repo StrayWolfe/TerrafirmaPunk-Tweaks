@@ -5,7 +5,6 @@ import java.util.Random;
 import com.bioxx.tfc.api.TFCBlocks;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -41,7 +40,7 @@ public class PlayerHandler
 	@SubscribeEvent
 	public void onDamaged(LivingHurtEvent event)
 	{
-		if(event.ammount <= 20 && event.entity instanceof EntityPlayer)
+		if(event.entity instanceof EntityPlayer && event.source == DamageSource.magic && event.ammount <= 20)
 		{
 			event.ammount = event.ammount * 50;
 			
