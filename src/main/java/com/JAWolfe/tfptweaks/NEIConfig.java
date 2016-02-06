@@ -1,4 +1,4 @@
-package com.onewolfe.tfptweaks;
+package com.JAWolfe.tfptweaks;
 
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;

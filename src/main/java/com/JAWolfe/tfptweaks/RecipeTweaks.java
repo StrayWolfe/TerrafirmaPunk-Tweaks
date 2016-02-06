@@ -1,13 +1,16 @@
-package com.onewolfe.tfptweaks;
+package com.JAWolfe.tfptweaks;
 
 import java.util.List;
 
 import cpw.mods.fml.common.Loader;
+import flaxbeard.steamcraft.SteamcraftItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.oredict.OreDictionary;
 import steamcraft.common.init.InitBlocks;
+import steamcraft.common.init.InitItems;
 
 public class RecipeTweaks 
 {
@@ -27,6 +30,16 @@ public class RecipeTweaks
 						recipes.remove(i--);
 				}
 			}
+			
+			OreDictionary.registerOre("itemAxe", new ItemStack(InitItems.axeSteam, 1, OreDictionary.WILDCARD_VALUE));
 		}
+	}
+	
+	public static void RecipeFixes()
+	{
+		if(Loader.isModLoaded("Steamcraft"))
+		{
+			OreDictionary.registerOre("itemAxe", new ItemStack(SteamcraftItems.steamAxe, 1, OreDictionary.WILDCARD_VALUE));
+		}      
 	}
 }

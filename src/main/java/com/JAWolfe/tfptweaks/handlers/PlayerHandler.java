@@ -1,9 +1,7 @@
-package com.onewolfe.tfptweaks;
+package com.JAWolfe.tfptweaks.handlers;
 
 import java.util.Random;
 
-import com.bioxx.tfc.TerraFirmaCraft;
-import com.bioxx.tfc.Handlers.EntityDamageHandler;
 import com.bioxx.tfc.Items.ItemTFCArmor;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Enums.EnumDamageType;
@@ -12,7 +10,6 @@ import com.bioxx.tfc.api.Interfaces.ICausesDamage;
 import com.bioxx.tfc.api.Interfaces.IInnateArmor;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -58,9 +55,7 @@ public class PlayerHandler
 	public void onDamaged(LivingHurtEvent event)
 	{
 		if(event.entity instanceof EntityPlayer)
-		{
-			//LogHelper.info(event.source.getDamageType() + " " + event.ammount);
-			
+		{			
 			if (event.source == DamageSource.onFire || event.source == DamageSource.fall || event.source == DamageSource.drown ||
 					event.source == DamageSource.lava || event.source == DamageSource.inWall || event.source == DamageSource.fallingBlock ||
 					event.source.isExplosion() || event.source == DamageSource.inFire || event.source == DamageSource.starve)
@@ -80,7 +75,6 @@ public class PlayerHandler
 				}
 				else if(event.source.isUnblockable() && event.source.getSourceOfDamage() instanceof EntityLivingBase)
 				{
-					LogHelper.info("Unblockable");
 					float damage = (float)((EntityLivingBase)event.source.getSourceOfDamage()).getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
 					
 					if(damage <= 20)
@@ -184,7 +178,7 @@ public class PlayerHandler
 			//6. Apply the damage to the player
 			EntityArmorCalcEvent eventPost = new EntityArmorCalcEvent(entity, damage, EntityArmorCalcEvent.EventType.POST);
 			MinecraftForge.EVENT_BUS.post(eventPost);
-			LogHelper.info(entity.getClass() + " " + source.getDamageType() +", "+eventPre.incomingDamage+", "+eventPost.incomingDamage);
+			//LogHelper.info(entity + " " + source.getDamageType() +", "+eventPre.incomingDamage+", "+eventPost.incomingDamage);
 			float hasHealth = entity.getHealth();
 			entity.setHealth(entity.getHealth()-eventPost.incomingDamage);
 			entity.func_110142_aN().func_94547_a(source, hasHealth, eventPost.incomingDamage);

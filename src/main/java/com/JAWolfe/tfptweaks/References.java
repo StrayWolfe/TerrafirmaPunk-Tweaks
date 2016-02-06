@@ -1,4 +1,4 @@
-package com.onewolfe.tfptweaks;
+package com.JAWolfe.tfptweaks;
 
 public class References 
 {

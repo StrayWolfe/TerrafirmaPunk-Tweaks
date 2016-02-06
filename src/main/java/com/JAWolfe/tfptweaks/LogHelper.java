@@ -1,4 +1,4 @@
-package com.onewolfe.tfptweaks;
+package com.JAWolfe.tfptweaks;
 
 import cpw.mods.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
