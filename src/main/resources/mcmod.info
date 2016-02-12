@@ -1,9 +1,9 @@
 {
     "modListVersion": 2,
     "modList": [{
-        "modid": "terrafirmapunktweaks",
+        "modid": "TerraFirmaPunkTweaks",
         "name": "TerraFirmaPunk Tweaks",
-        "description": "Various tweaks for TerraFirmaPunk.",
+        "description": "Various tweaks for the TerraFirmaPunk Pack.",
         "version": "${mod_version}",
         "mcversion": "${minecraft_version}",
         "url": "",
@@ -13,9 +13,9 @@
         "logoFile": "",
         "screenshots": [],
         "parent": "",
-        "requiredMods": [],
-        "dependencies": ["terrafirmacraft", "steamcraft2"],
-        "dependants": [  ],
+        "requiredMods": ["Forge", "terrafirmacraft"],
+        "dependencies": ["terrafirmacraft", "steamcraft2", "Steamcraft"],
+        "dependants": [],
         "useDependencyInformation": "true"
     }]
 }

@@ -61,6 +61,11 @@ allprojects
 
 repositories 
 {
+	maven { 
+    	// The repo from which to get waila
+        name "Mobius Repo"
+        url "http://mobiusstrip.eu/maven"
+    }
     maven { 
     	// the repo from which to get NEI and stuff 
         name 'CB Repo'
@@ -73,6 +78,7 @@ dependencies
 	compile "codechicken:CodeChickenCore:1.7.10-1.0.4.35:dev"
 	compile "codechicken:CodeChickenLib:1.7.10-1.1.3.127:dev"
 	compile "codechicken:NotEnoughItems:1.7.10-1.0.4.95:dev"
+	compile "mcp.mobius.waila:Waila:1.5.11-RC2-NONEI_1.7.10"
 }
 
 //Creates a compiled de-obfuscated jar

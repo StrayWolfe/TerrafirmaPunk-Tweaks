@@ -1,5 +1,5 @@
 //========================================================================
-//							Heating items
+//                          Heating items
 //========================================================================
 
 //Add Recipe
@@ -18,7 +18,7 @@
 //mods.tfptweaks.ItemHeat.removeRecipe(<terrafirmacraft:Sand>);
 
 //========================================================================
-//							 Loom Recipes
+//                           Loom Recipes
 //========================================================================
 
 //Add Recipe
@@ -36,7 +36,7 @@
 //mods.tfptweaks.Loom.removeRecipe(<terrafirmacraft:item.WoolYarn> * 16);
 
 //========================================================================
-//							Quern Recipes
+//                          Quern Recipes
 //========================================================================
 
 //Add Recipe
@@ -47,5 +47,18 @@
 //Remove Recipe
 
 //OutputStack, InputStack {Stack sizes must be the same as the recipe to be removed}
-//mods.tfptweaks.Quern.removeRecipe(<terrafirmacraft:item.dyePowder:15> * 2, <minecraft:bone>);
 //mods.tfptweaks.Quern.removeRecipe(<terrafirmacraft:item.dyePowder:15>, <minecraft:bone>);
+
+//========================================================================
+//                          Barrel Recipe(NOT FULLY IMPLEMENTED DO NOT USE)
+//========================================================================
+
+//Add Recipe
+
+//OutputStack, OutputFluid, InputStack, InputFluid, sealtime, removesLiquid, sealed, minTechLevel, allowAnyStack
+//mods.tfptweaks.Barrel.addRecipe();
+
+//Add Multi-Item Recipe
+
+//OutputStack, InputStack, inputFS, sealed, minTechLevel, allowAnyStack, keepstacksize
+//mods.tfptweaks.Barrel.addMultiItemRecipe();

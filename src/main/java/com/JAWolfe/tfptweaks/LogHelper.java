@@ -3,6 +3,8 @@ package com.JAWolfe.tfptweaks;
 import cpw.mods.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 
+import com.JAWolfe.tfptweaks.reference.References;
+
 public class LogHelper 
 {
 	public static void log(Level logLevel, Object object)

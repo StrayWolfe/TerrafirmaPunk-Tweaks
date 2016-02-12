@@ -1,0 +1,49 @@
+Changelog
+=================================================
+-------------------------------------------------
+TFP Tweaks 1.06
+-------------------------------------------------
+New Features
++Added TFC water support for Flaxbeard's Steam Power boilers and flash boilers
++Added Config file to control most features of this mod
++Added Changelog
+
+Tweaks
++Added integration of Flaxbeard's Steam Power with Waila
++Added withering to be treated like poison/magic instead of hit damage
+
+Bug Fixes
++Fixed vanilla PvP 1 HP scaling to TFC doing 500 HPs; it should now scale to the config value
++Fixed required mods and dependencies
++Applied appropriate mod checks to prevent crashes from lacking a referenced mod 
+
+-------------------------------------------------
+TFP Tweaks 1.05
+-------------------------------------------------
+New Features
++Added Minetweaker support for heating items in a firepit or forge, making items with the loom, and crushing items with the quern
+
+-------------------------------------------------
+TFP Tweaks 1.03
+-------------------------------------------------
+New Features
++All player damage less than 20 hit points is scaled to TFC levels with armour taken into account; 1 hit point is multiplied by 50
+
+-------------------------------------------------
+TFP Tweaks 1.02
+-------------------------------------------------
+New Features
++Player damage from magic less than 20 hit points is scaled to TFC levels; 1 hit point is multiplied by 50
++Vanilla healing between 2-8 healing points have been scaled to give TFC level healing; 1 healing point is multiplied by 50
+
+-------------------------------------------------
+TFP Tweaks 1.01
+-------------------------------------------------
+New Features
++Added Steamcraft 2 Flesh Block can no longer being crafted and does not appear in NEI 
+
+-------------------------------------------------
+TFP Tweaks 1.00
+-------------------------------------------------
+New Features
++Added Vanilla chests are converted to TFC Oak chests when the vanilla chest is picked up from the ground by a player
