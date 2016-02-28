@@ -4,7 +4,14 @@ import java.util.Random;
 
 import com.JAWolfe.tfptweaks.blocks.TFPBlocks;
 import com.JAWolfe.tfptweaks.reference.ConfigSettings;
+import com.JAWolfe.tfptweaks.reference.ReferenceLists;
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Items.ItemTerra;
+import com.bioxx.tfc.TileEntities.TEAnvil;
+import com.bioxx.tfc.api.HeatIndex;
+import com.bioxx.tfc.api.HeatRegistry;
 import com.bioxx.tfc.api.TFCBlocks;
+import com.bioxx.tfc.api.TFC_ItemHeat;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -17,22 +24,70 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
 public class PlayerInteractionHandler 
 {
-	/*@SubscribeEvent
+	@SubscribeEvent
 	public void onToolTip(ItemTooltipEvent event)
 	{
 		ItemStack object = event.itemStack;
-		if(!(object.getItem() instanceof ISize))
+		
+		/*if(!(object.getItem() instanceof ISize))
 			event.toolTip.add("\u2696" + TFC_Core.translate("gui.Weight." + EnumWeight.LIGHT.getName()) + " \u21F2" + 
-				TFC_Core.translate("gui.Size." + EnumSize.VERYSMALL.getName().replace(" ", "")));
-	}*/
+				TFC_Core.translate("gui.Size." + EnumSize.VERYSMALL.getName().replace(" ", "")));*/
+		
+		if(!(object.getItem() instanceof ItemTerra))
+		{
+			if (object.hasTagCompound())
+			{
+				if(TFC_ItemHeat.hasTemp(object))
+				{
+					float temp = TFC_ItemHeat.getTemp(object);
+					float meltTemp = -1;
+					HeatIndex hi = HeatRegistry.getInstance().findMatchingIndex(object);
+					if(hi != null)
+						meltTemp = hi.meltTemp;
+	
+					if(meltTemp != -1)
+					{
+						event.toolTip.add(TFC_ItemHeat.getHeatColor(temp, meltTemp));
+					}
+					
+					if(ReferenceLists.getInstance().isAnvilInged(object))
+					{
+						String s = "";
+						if(HeatRegistry.getInstance().isTemperatureDanger(object))
+						{
+							s += EnumChatFormatting.WHITE + TFC_Core.translate("gui.ingot.danger") + " | ";
+						}
+		
+						if(HeatRegistry.getInstance().isTemperatureWeldable(object))
+						{
+							s += EnumChatFormatting.WHITE + TFC_Core.translate("gui.ingot.weldable") + " | ";
+						}
+		
+						if(HeatRegistry.getInstance().isTemperatureWorkable(object))
+						{
+							s += EnumChatFormatting.WHITE + TFC_Core.translate("gui.ingot.workable");
+						}
+		
+						if (!"".equals(s))
+							event.toolTip.add(s);
+					}
+				}
+				
+				if (object.getTagCompound().hasKey(TEAnvil.ITEM_CRAFTING_VALUE_TAG) || object.getTagCompound().hasKey(TEAnvil.ITEM_CRAFTING_RULE_1_TAG))
+					event.toolTip.add(TFC_Core.translate("gui.ItemWorked"));
+			}
+		}
+	}
 	
 	@SubscribeEvent
 	public void onItemPickup(EntityItemPickupEvent event)

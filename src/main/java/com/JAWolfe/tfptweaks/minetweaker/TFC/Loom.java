@@ -1,4 +1,4 @@
-package com.JAWolfe.tfptweaks.minetweaker;
+package com.JAWolfe.tfptweaks.minetweaker.TFC;
 
 import java.util.List;
 

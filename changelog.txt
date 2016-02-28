@@ -1,6 +1,23 @@
 Changelog
 =================================================
 -------------------------------------------------
+TFP Tweaks 1.07
+-------------------------------------------------
+New Features
++Added Minetweaker support for the Assembly Table for Buildcraft 7.1
++Added Minetweaker support for the barrel and anvil for Terrafirmacraft
+
+Tweaks
++Added config setting to set the method and values for stopping poison and wither
++Added config to set the damage multipliers for damage done by weapons and non-weapons
++Added damage can now be set to values lower than 20
++Added correct tooltip on heated items for non-TFC items to show temperature, can work/weld, and if it has been worked tooltips
++Added witches can now insta-kill other witches if they are directly hit with a splash potion
+
+Bug Fixes
++Fixed crashes from attack tweak loops
++Fixed heated item specific heat not supporting decimal points for Minetweaker support of firepit or forge
+-------------------------------------------------
 TFP Tweaks 1.06
 -------------------------------------------------
 New Features

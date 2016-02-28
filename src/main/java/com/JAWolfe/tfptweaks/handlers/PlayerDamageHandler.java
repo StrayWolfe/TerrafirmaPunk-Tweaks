@@ -2,6 +2,7 @@ package com.JAWolfe.tfptweaks.handlers;
 
 import java.util.Random;
 
+import com.JAWolfe.tfptweaks.LogHelper;
 import com.JAWolfe.tfptweaks.reference.ConfigSettings;
 import com.bioxx.tfc.Items.ItemTFCArmor;
 import com.bioxx.tfc.api.Enums.EnumDamageType;
@@ -15,6 +16,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,56 +30,87 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 public class PlayerDamageHandler 
 {
+	/**
+	 * TFC scaled damage handling
+	 * @param event
+	 **/
 	@SubscribeEvent
 	public void onDamaged(LivingHurtEvent event)
-	{
-		if(event.entity instanceof EntityPlayer)
+	{			
+		//Reset Attacking tag on attacking entity
+		if(event.source.getEntity() != null && event.source.getEntity().getEntityData().hasKey("Attacking") &&
+				event.source.getEntity().getEntityData().getBoolean("Attacking"))
+			event.source.getEntity().getEntityData().setBoolean("Attacking", false);
+		
+		//Check if damage is already processed by TFC
+		if (event.source == DamageSource.onFire || event.source == DamageSource.fall || event.source == DamageSource.drown ||
+				event.source == DamageSource.lava || event.source == DamageSource.inWall || event.source == DamageSource.fallingBlock ||
+				event.source.isExplosion() || event.source == DamageSource.inFire || event.source == DamageSource.starve)
+			return;
+		
+		//Process magic damage for all entities
+		else if((event.source == DamageSource.magic || event.source == DamageSource.wither) && event.ammount < 20 && ConfigSettings.VanillaMagicScaling)
+		{								
+			event.ammount = event.ammount * ConfigSettings.VanillaMagicMultipier;
+
+			float remainingHealth = event.entityLiving.getHealth() - event.ammount;
+			float cutoffValue = ConfigSettings.FiniteMagicDamageCutoffValue;
+			
+			if(!ConfigSettings.FiniteMagicDamageCutoff)
+				cutoffValue = (event.entityLiving.getMaxHealth() * ConfigSettings.PercentMagicDamageCutoffValue)/100;
+			
+			if(remainingHealth <= cutoffValue)
+				event.setCanceled(true);
+		}
+		
+		//Handle unblockable damage to players
+		else if(event.source.getSourceOfDamage() instanceof EntityLivingBase && ConfigSettings.VanillaDamageScaling &&
+				event.source.isUnblockable() && event.entity instanceof EntityPlayer)
 		{	
-			if (event.source == DamageSource.onFire || event.source == DamageSource.fall || event.source == DamageSource.drown ||
-					event.source == DamageSource.lava || event.source == DamageSource.inWall || event.source == DamageSource.fallingBlock ||
-					event.source.isExplosion() || event.source == DamageSource.inFire || event.source == DamageSource.starve)
-				return;
-			else if((event.source == DamageSource.magic || event.source == DamageSource.wither) && event.ammount < 20 && ConfigSettings.VanillaMagicScaling)
+			float damage = (float)((EntityLivingBase)event.source.getSourceOfDamage()).getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+			
+			if(event.source.getSourceOfDamage() instanceof EntityPlayer && damage < 20 && ConfigSettings.VanillaPvPDamageScaling)
 			{
-				event.ammount = event.ammount * ConfigSettings.VanillaMagicMultipier;
+				if(damage == 1)
+					damage *= ConfigSettings.VanillaPvPNonWeaponDamageMultipier;
+				else
+					damage *= ConfigSettings.VanillaPvPWeaponDamageMultipier;
+			}
 				
-				if((event.source == DamageSource.magic || event.source == DamageSource.wither) && (event.entityLiving.getHealth() - event.ammount) <= 0)
-					event.setCanceled(true);
-			}
-			else
+			if(!(event.source.getSourceOfDamage() instanceof EntityPlayer) && damage < 20 && ConfigSettings.VanillaMobDamageScaling)
 			{
-				if(event.source.getSourceOfDamage() instanceof EntityLivingBase && ConfigSettings.VanillaDamageScaling)
-				{					
-					if(event.source.isUnblockable())
-					{
-						float damage = (float)((EntityLivingBase)event.source.getSourceOfDamage()).getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
-						
-						if(event.source.getSourceOfDamage() instanceof EntityPlayer && damage < 20 && ConfigSettings.VanillaPvPDamageScaling)
-							damage *= ConfigSettings.VanillaPvPDamageMultipier;
-							
-						if(!(event.source.getSourceOfDamage() instanceof EntityPlayer) && damage < 20 && ConfigSettings.VanillaMobDamageScaling)
-							damage *= ConfigSettings.VanillaMobDamageMultipier;
-						
-						event.ammount = applyArmorCalculations(event.entityLiving, event.source, event.ammount > damage ? event.ammount : damage);
-					}
-				} 
+				damage *= ConfigSettings.VanillaMobDamageMultipier;
 			}
+			
+			event.ammount = applyArmorCalculations(event.entityLiving, event.source, event.ammount > damage ? event.ammount : damage);
 		}
 	}
 	
+	/**
+	 * TFC scaled attack handling
+	 * @param event
+	 */
 	@SubscribeEvent
 	public void entityAttack(LivingAttackEvent event)
-	{
+	{		
+		//Don't run if client sided
 		if(event.entityLiving.worldObj.isRemote)
 			return;
 		
+		//Don't run if damage is already processed by TFC or other damage handlers
 		if(event.source == DamageSource.onFire || event.source == DamageSource.fall || event.source == DamageSource.drown ||
 			event.source == DamageSource.lava || event.source == DamageSource.inWall || event.source == DamageSource.fallingBlock ||
 			event.source.isExplosion() || event.source == DamageSource.inFire || event.source == DamageSource.starve || 
 			event.source == DamageSource.magic || event.source == DamageSource.wither)
 			return;
-		else if(event.ammount < 20 && event.entity instanceof EntityPlayer && ConfigSettings.VanillaDamageScaling)
+		
+		//Handle attacks done to the player in the vanilla range and there is no attacking tag or is false
+		else if(event.ammount < 20 && event.entity instanceof EntityPlayer && ConfigSettings.VanillaDamageScaling &&
+				event.source != null && event.source.getEntity() != null &&
+				(!event.source.getEntity().getEntityData().hasKey("Attacking") || 
+				(event.source.getEntity().getEntityData().hasKey("Attacking") && !event.source.getEntity().getEntityData().getBoolean("Attacking"))))
 		{
+			//Handle attacks from a player to the player
 			if(event.source.getEntity() instanceof EntityPlayer && ConfigSettings.VanillaPvPDamageScaling)
 			{
 				EntityLivingBase attacker = (EntityLivingBase)event.source.getEntity();
@@ -91,12 +124,15 @@ public class PlayerDamageHandler
 				{
 					if (!target.hitByEntity(target))
 					{
-						float damageAmount = ConfigSettings.VanillaPvPDamageMultipier;
+						float damageAmount = ConfigSettings.VanillaPvPNonWeaponDamageMultipier;
 						if(attacker.getHeldItem() != null)
 						{
 							damageAmount = (float)player.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
 
-							damageAmount *= ConfigSettings.VanillaPvPDamageMultipier;
+							if(damageAmount <= 1)
+								damageAmount *= ConfigSettings.VanillaPvPNonWeaponDamageMultipier;
+							else
+								damageAmount *= ConfigSettings.VanillaPvPWeaponDamageMultipier;
 						}
 
 						if (player.isPotionActive(Potion.damageBoost))
@@ -121,20 +157,62 @@ public class PlayerDamageHandler
 
 							damageAmount += enchantmentDamage;
 
+							//Add "Attacking" tag to attacking entity
+							event.source.getEntity().getEntityData().setBoolean("Attacking", true);
 							target.attackEntityFrom(DamageSource.causePlayerDamage(player), damageAmount);
 						}
 					}
 				}
 			}
 			
+			//Handle attacks from non-TFC mobs to the player
 			if(!(event.source.getEntity() instanceof EntityPlayer) && event.source.getEntity() != null && 
-					!event.source.getEntity().getClass().getName().contains("bioxx.tfc") && ConfigSettings.VanillaMobDamageScaling)
+					!event.source.getEntity().getClass().getName().contains("bioxx.tfc"))
 			{
-				event.entity.attackEntityFrom(event.source, event.ammount * ConfigSettings.VanillaMobDamageMultipier);
+				//Add "Attacking" tag to attacking entity
+				event.source.getEntity().getEntityData().setBoolean("Attacking", true);
+				
+				//Add damage for general damage
+				if(ConfigSettings.VanillaMobDamageScaling && !"indirectMagic".contentEquals(event.source.damageType))
+					event.entity.attackEntityFrom(event.source, event.ammount * ConfigSettings.VanillaMobDamageMultipier);
+				
+				//Add damage for indirect magic damage
+				if(ConfigSettings.VanillaMagicScaling && "indirectMagic".contentEquals(event.source.damageType))
+					event.entity.attackEntityFrom(event.source, ConfigSettings.VanillaPvPNonWeaponDamageMultipier);
 			}
+		}
+		
+		//Handle attacks done to mobs in the vanilla range from a non-TFC source and there is no attacking tag or is false
+		else if(event.ammount < 20 && !(event.entity instanceof EntityPlayer) && event.source != null && event.source.getEntity() != null &&
+				!event.source.getEntity().getClass().getName().contains("bioxx.tfc") &&
+				(!event.source.getEntity().getEntityData().hasKey("Attacking") || 
+				(event.source.getEntity().getEntityData().hasKey("Attacking") && !event.source.getEntity().getEntityData().getBoolean("Attacking"))))
+		{
+			//Add "Attacking" tag to attacking entity
+			event.source.getEntity().getEntityData().setBoolean("Attacking", true);
+			
+			//Add damage for general damage
+			if(ConfigSettings.VanillaMobDamageScaling && !"indirectMagic".contentEquals(event.source.damageType))
+				event.entity.attackEntityFrom(event.source, event.ammount * ConfigSettings.VanillaMobDamageMultipier);
+			
+			//Add damage for indirect magic damage
+			if(ConfigSettings.VanillaMagicScaling && "indirectMagic".contentEquals(event.source.damageType))
+			{
+				event.entity.attackEntityFrom(event.source, ConfigSettings.VanillaPvPNonWeaponDamageMultipier);
+				
+				if(event.entity instanceof EntityWitch || event.entity.getClass().toString().contains("EntityWitherWitch"))
+				{
+					//Direct hit of a magic bottle kills a witch
+					event.entity.attackEntityFrom(event.source, 100000);
+				}
+			}			
 		}
 	}
 	
+	/**
+	 * TFC scaled healing handler
+	 * @param event
+	 */
 	@SubscribeEvent
 	public void onHeal(LivingHealEvent event)
 	{
@@ -216,6 +294,11 @@ public class PlayerDamageHandler
 		return 0;
 	}
 	
+	/**
+	 * Random armor slot selector
+	 * @param rand
+	 * @return
+	 */
 	private int getRandomSlot(Random rand)
 	{
 		int chance = rand.nextInt(100);
@@ -229,6 +312,11 @@ public class PlayerDamageHandler
 			return 1;//Legs
 	}
 	
+	/**
+	 * Damage reduction amount
+	 * @param armorRating
+	 * @return
+	 */
 	protected float getDamageReduction(int armorRating)
 	{
 		if(armorRating == -1000)
@@ -236,6 +324,15 @@ public class PlayerDamageHandler
 		return 1000f / (1000f + armorRating);
 	}
 	
+	/**
+	 * TFC Damage Processing
+	 * @param source
+	 * @param damage
+	 * @param pierceMult
+	 * @param slashMult
+	 * @param crushMult
+	 * @return
+	 */
 	private float processDamageSource(DamageSource source, float damage,
 			float pierceMult, float slashMult, float crushMult)
 	{
@@ -260,6 +357,11 @@ public class PlayerDamageHandler
 		return Math.max(0, damage);
 	}
 	
+	/**
+	 * TFC Damage types
+	 * @param source
+	 * @return
+	 */
 	private EnumDamageType getDamageType(DamageSource source) 
 	{
 		//4.1 Determine the source of the damage and get the appropriate Damage Type
@@ -289,6 +391,12 @@ public class PlayerDamageHandler
 		return EnumDamageType.GENERIC;
 	}
 	
+	/**
+	 * TFC Armor damage processing
+	 * @param armor
+	 * @param baseDamage
+	 * @return
+	 */
 	private float processArmorDamage(ItemStack armor, float baseDamage)
 	{
 		if(armor.hasTagCompound())

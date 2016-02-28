@@ -1,4 +1,4 @@
-package com.JAWolfe.tfptweaks.minetweaker;
+package com.JAWolfe.tfptweaks.minetweaker.TFC;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class ItemHeat 
 {		
 	@ZenMethod
-    public static void addRecipe(IItemStack output, IItemStack input, int heat, int specHeat) 
+    public static void addRecipe(IItemStack output, IItemStack input, double heat, double specHeat) 
 	{
 		ItemStack inputStack = MineTweakerMC.getItemStack(input);
 		ItemStack outputStack = MineTweakerMC.getItemStack(output);
@@ -48,7 +48,7 @@ public class ItemHeat
     }
 	
 	@ZenMethod
-    public static void addRecipe(IItemStack output, IOreDictEntry oredictentry, int heat, int specHeat) 
+    public static void addRecipe(IItemStack output, IOreDictEntry oredictentry, double heat, double specHeat) 
 	{
         if (oredictentry != null && oredictentry.getAmount() > 0)
         {
@@ -61,7 +61,7 @@ public class ItemHeat
     }
 	
 	@ZenMethod
-    public static void addRecipe(IItemStack output, IOreDictEntry oredictentry, int heat) 
+    public static void addRecipe(IItemStack output, IOreDictEntry oredictentry, double heat) 
 	{
 		addRecipe(output, oredictentry, heat, 1);
 	}
@@ -85,12 +85,12 @@ public class ItemHeat
 	
 	private static class addHeatingAction implements IUndoableAction 
 	{
-		private ItemStack inputStack;
-		private ItemStack outputStack;
-		private int meltingPoint;
-		private int specificHeat;
+		ItemStack inputStack;
+		ItemStack outputStack;
+		double meltingPoint;
+		double specificHeat;
 		
-		public addHeatingAction(ItemStack output, ItemStack input, int heat, int specHeat)
+		public addHeatingAction(ItemStack output, ItemStack input, double heat, double specHeat)
 		{
 			this.outputStack = output;
 			this.inputStack = input;
@@ -101,7 +101,7 @@ public class ItemHeat
 		@Override
 		public void apply() 
 		{
-			HeatRegistry.getInstance().addIndex(new HeatIndex(inputStack, specificHeat, meltingPoint, outputStack).setMinMax(outputStack.getItemDamage())); 
+			HeatRegistry.getInstance().addIndex(new HeatIndex(inputStack, specificHeat, meltingPoint, outputStack).setKeepNBT(true).setMinMax(outputStack.getItemDamage()));
 		}
 
 		@Override
