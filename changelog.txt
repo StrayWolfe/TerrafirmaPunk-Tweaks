@@ -1,6 +1,18 @@
 Changelog
 =================================================
 -------------------------------------------------
+TFP Tweaks 1.08
+-------------------------------------------------
+New Features
++Added Wooden oil bucket support
++Added TF Hedge maze hits back
+
+Tweaks
++Added "Potion of Bleeding" US localization to effect.bleeding.postfix
+
+Bug Fixes
++Fixed Player damage to mobs with non-weapon items and open handed attacks
+-------------------------------------------------
 TFP Tweaks 1.07
 -------------------------------------------------
 New Features
