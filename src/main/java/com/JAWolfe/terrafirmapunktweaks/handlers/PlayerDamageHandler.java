@@ -186,64 +186,67 @@ public class PlayerDamageHandler
 				!event.source.getEntity().getClass().getName().contains("bioxx.tfc") && (!event.source.getEntity().getEntityData().hasKey("Attacking") || 
 				(event.source.getEntity().getEntityData().hasKey("Attacking") && !event.source.getEntity().getEntityData().getBoolean("Attacking"))))
 		{		
-			EntityLivingBase attacker = (EntityLivingBase)event.source.getEntity();
-			Entity target = event.entity;
-
-			//Add damage for general damage
-			if (ConfigSettings.VanillaMobDamageScaling && !"indirectMagic".contentEquals(event.source.damageType) 
-					&& target.canAttackWithItem())
+			if(event.source.getEntity() instanceof EntityLivingBase && ConfigSettings.VanillaMobDamageScaling)
 			{
-				if (!target.hitByEntity(target))
+				EntityLivingBase attacker = (EntityLivingBase)event.source.getEntity();
+				Entity target = event.entity;
+	
+				//Add damage for general damage
+				if (ConfigSettings.VanillaMobDamageScaling && !"indirectMagic".contentEquals(event.source.damageType) 
+						&& target.canAttackWithItem())
 				{
-					float damageAmount = ConfigSettings.VanillaPvPNonWeaponDamageMultipier;
-					if(attacker.getHeldItem() != null)
+					if (!target.hitByEntity(target))
 					{
-						damageAmount = (float)attacker.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
-
-						if(damageAmount <= 1)
-							damageAmount *= ConfigSettings.VanillaPvPNonWeaponDamageMultipier;
-						else
-							damageAmount *= ConfigSettings.VanillaMobDamageMultipier;
-					}
-
-					if (attacker.isPotionActive(Potion.damageBoost))
-						damageAmount += 3 << attacker.getActivePotionEffect(Potion.damageBoost).getAmplifier();
-
-					float enchantmentDamage = 0;
-
-					if (target instanceof EntityLiving)
-					{
-						enchantmentDamage = EnchantmentHelper.getEnchantmentModifierLiving(attacker, (EntityLiving) target);
-					}
-
-					if (damageAmount > 0 || enchantmentDamage > 0)
-					{
-						boolean criticalHit = attacker.fallDistance > 0.0F && !attacker.onGround && 
-								!attacker.isOnLadder() && !attacker.isInWater() && 
-								!attacker.isPotionActive(Potion.blindness) && attacker.ridingEntity == null && 
-								target instanceof EntityLiving;
-
-						if (criticalHit && damageAmount > 0)
-							damageAmount += event.entity.worldObj.rand.nextInt((int) (damageAmount / 2 + 2));
-
-						damageAmount += enchantmentDamage;
-
-						//Add "Attacking" tag to attacking entity
-						event.source.getEntity().getEntityData().setBoolean("Attacking", true);
-						target.attackEntityFrom(event.source, damageAmount);
+						float damageAmount = ConfigSettings.VanillaPvPNonWeaponDamageMultipier;
+						if(attacker.getHeldItem() != null)
+						{
+							damageAmount = (float)attacker.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+	
+							if(damageAmount <= 1)
+								damageAmount *= ConfigSettings.VanillaPvPNonWeaponDamageMultipier;
+							else
+								damageAmount *= ConfigSettings.VanillaMobDamageMultipier;
+						}
+	
+						if (attacker.isPotionActive(Potion.damageBoost))
+							damageAmount += 3 << attacker.getActivePotionEffect(Potion.damageBoost).getAmplifier();
+	
+						float enchantmentDamage = 0;
+	
+						if (target instanceof EntityLiving)
+						{
+							enchantmentDamage = EnchantmentHelper.getEnchantmentModifierLiving(attacker, (EntityLiving) target);
+						}
+	
+						if (damageAmount > 0 || enchantmentDamage > 0)
+						{
+							boolean criticalHit = attacker.fallDistance > 0.0F && !attacker.onGround && 
+									!attacker.isOnLadder() && !attacker.isInWater() && 
+									!attacker.isPotionActive(Potion.blindness) && attacker.ridingEntity == null && 
+									target instanceof EntityLiving;
+	
+							if (criticalHit && damageAmount > 0)
+								damageAmount += event.entity.worldObj.rand.nextInt((int) (damageAmount / 2 + 2));
+	
+							damageAmount += enchantmentDamage;
+	
+							//Add "Attacking" tag to attacking entity
+							event.source.getEntity().getEntityData().setBoolean("Attacking", true);
+							target.attackEntityFrom(event.source, damageAmount);
+						}
 					}
 				}
-			}
-			
-			//Add damage for indirect magic damage
-			if(ConfigSettings.VanillaMagicScaling && "indirectMagic".contentEquals(event.source.damageType))
-			{
-				event.entity.attackEntityFrom(event.source, ConfigSettings.VanillaPvPNonWeaponDamageMultipier);
 				
-				if(event.entity instanceof EntityWitch || event.entity.getClass().toString().contains("EntityWitherWitch"))
+				//Add damage for indirect magic damage
+				if(ConfigSettings.VanillaMagicScaling && "indirectMagic".contentEquals(event.source.damageType))
 				{
-					//Direct hit of a magic bottle kills a witch
-					event.entity.attackEntityFrom(event.source, 100000);
+					event.entity.attackEntityFrom(event.source, ConfigSettings.VanillaPvPNonWeaponDamageMultipier);
+					
+					if(event.entity instanceof EntityWitch || event.entity.getClass().toString().contains("EntityWitherWitch"))
+					{
+						//Direct hit of a magic bottle kills a witch
+						event.entity.attackEntityFrom(event.source, 100000);
+					}
 				}
 			}
 		}
