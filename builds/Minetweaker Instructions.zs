@@ -2,6 +2,21 @@
 //							Heating items
 //========================================================================
 
+//Heat increases at a base rate of 1C per tick. Specific heat is just a multiplier on this rate. 
+//This means that a meltTemp of 100C will be reached in 5 seconds with a Specific Heat of 1.0 and 10 seconds at 2.0
+
+//Reference Melting Temps and Specific Heats:
+//----------------------
+//Bismuth: 270C at 0.14                 Iron: 1535C at 0.35                 Sterling Silver: 900C at 0.35
+//Bismuth Bronze: 985C at 0.35          Lead: 328C at 0.22                  Tin: 230C at 0.14
+//Black Bronze: 1070C at 0.35           Nickel: 1453C at 0.48               Zinc: 420C at 0.21
+//Black Steel: 1485C at 0.35            Pig Iron: 1500C at 0.35             Sand: 600C at 1
+//Blue Steel: 1540C at 0.35             Platinum: 1730 at 0.35              Cook Food: 600C at 1
+//Brass: 930C at 0.35                   Red Steel: 1540 at 0.35             Incinerate Food: 1200C at 1
+//Bronze: 950C at 0.35                  Rose Gold: 960C at 0.35             Ignite stick: 40C at 1
+//Copper: 1080C at 0.35                 Silver: 961C at 0.48
+//Gold: 1060C at 0.6                    Steel: 1540C at 0.35
+
 //-----------------------------------------------
 //Add Recipe
 //-----------------------------------------------
@@ -138,11 +153,11 @@
 //-----------------------------------------------
 //Add Anvil Recipe
 //-----------------------------------------------
-//OutputStack, InputStack1, InputStack2, PlanName, AnvilType
-//mods.tfptweaks.Anvil.addAnvilRecipe(<minecraft:shears>, <terrafirmacraft:item.Steel Knife Blade>, <terrafirmacraft:item.Steel Knife Blade>, "shears", 3);
+//OutputStack, InputStack1, InputStack2, PlanName, AnvilType, CraftingValue (Range 0-50)
+//mods.tfptweaks.Anvil.addAnvilRecipe(<minecraft:shears>, <terrafirmacraft:item.Steel Knife Blade>, <terrafirmacraft:item.Steel Knife Blade>, "shears", 3, 35);
 
-//OutputStack, InputStack, PlanName, AnvilType
-//mods.tfptweaks.Anvil.addAnvilRecipe(<minecraft:iron_sword>, <minecraft:iron_ingot>, "sword", 3);
+//OutputStack, InputStack, PlanName, AnvilType, CraftingValue (Range 0-50)
+//mods.tfptweaks.Anvil.addAnvilRecipe(<minecraft:iron_sword>, <minecraft:iron_ingot>, "sword", 3, 35);
 
 //-----------------------------------------------
 //Remove Anvil Recipe
@@ -167,11 +182,19 @@
 
 //-----------------------------------------------
 //Add Plan Recipe
-//(Works but will not show proper localized plan 
-// name if a custom plan is created)
 //-----------------------------------------------
 
-//Plan Rules: Any=1, BendAny=2, BendLast=3, BendLastTwo=4, BendNotLast=5,  BendSecondFromLast=6, BendThirdFromLast=7, DrawAny=8, DrawLast=9, DrawLastTwo=10, DrawNotLast=11,
+//To show proper custom plan name, use the minetweaker methods to add localization:
+//----------------------------------------------------------------------------------
+// Set translation but only if language is en_US
+//game.setLocalization("en_US", "gui.plans.vanillasword", "Vanilla Sword");
+
+//KEY, TEXT - You will want to use this one most of the time, it overrides no matter the language
+//game.setLocalization("gui.plans.vanillasword", "Vanilla Sword");
+
+//Plan Rules: 
+//----------------------------------------------------------------------------------
+//Any=1, BendAny=2, BendLast=3, BendLastTwo=4, BendNotLast=5,  BendSecondFromLast=6, BendThirdFromLast=7, DrawAny=8, DrawLast=9, DrawLastTwo=10, DrawNotLast=11,
 // DrawSecondFromLast=12, DrawThirdFromLast=13, HitAny=14, HitLast=15, HitLastTwo=16, HitNotLast=17, HitSecondFromLast=18, HitThirdFromLast=19, PunchAny=20, PunchLast=21,
 // PunchLastTwo=22, PunchNotLast=23, PunchSecondFromLast=24, PunchThridFromLast=25, ShrinkAny=26, ShrinkLast=27, ShrinkLastTwo=28, ShrinkNotLast=29, ShrinkSecondFromLast=30,
 // ShrinkThirdFromLast=31, UpsetAny=32, UpetLast=33, UpsetLastTwo=34, UpsetNotLast=35, UpsetSecondFromLast=36, UpsetThirdFromLast=37

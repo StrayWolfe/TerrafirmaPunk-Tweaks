@@ -22,7 +22,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class Anvil 
 {
 	@ZenMethod
-	public static void addAnvilRecipe(IItemStack Output, IItemStack Input1, IItemStack Input2, String plan, int AnvilReq)
+	public static void addAnvilRecipe(IItemStack Output, IItemStack Input1, IItemStack Input2, String plan, int AnvilReq, int craftingValue)
 	{
 		ItemStack result = MineTweakerMC.getItemStack(Output);
 		ItemStack input1 = MineTweakerMC.getItemStack(Input1);
@@ -30,13 +30,13 @@ public class Anvil
 		if(Input2 != null)
 			input2 = MineTweakerMC.getItemStack(Input2);
 		
-		MineTweakerAPI.apply(new addAnvilRecipeAction(result, input1, input2, plan, AnvilReq));
+		MineTweakerAPI.apply(new addAnvilRecipeAction(result, input1, input2, plan, AnvilReq, craftingValue));
 	}
 	
 	@ZenMethod
-	public static void addAnvilRecipe(IItemStack Output, IItemStack Input1, String plan, int AnvilReq)
+	public static void addAnvilRecipe(IItemStack Output, IItemStack Input1, String plan, int AnvilReq, int craftingValue)
 	{
-		addAnvilRecipe(Output, Input1, null, plan, AnvilReq);
+		addAnvilRecipe(Output, Input1, null, plan, AnvilReq, craftingValue);
 	}
 	
 	@ZenMethod
@@ -91,7 +91,6 @@ public class Anvil
 	
 	private static class addAnvilRecipeAction implements IUndoableAction 
 	{
-		Random r = new Random();
 		ItemStack input1;
 		ItemStack input2;
 		ItemStack result;
@@ -99,14 +98,14 @@ public class Anvil
 		int craftingvalue;
 		int anvilReq;
 		
-		public addAnvilRecipeAction(ItemStack result, ItemStack input1, ItemStack input2, String plan, int anvilReq)
+		public addAnvilRecipeAction(ItemStack result, ItemStack input1, ItemStack input2, String plan, int anvilReq, int craftingValue)
 		{
 			this.input1 = input1;
 			this.input2 = input2;
 			this.result = result;
 			this.plan = plan;
-			this.craftingvalue = 70 + r.nextInt(50);
 			this.anvilReq = anvilReq;
+			this.craftingvalue = 50 + craftingValue;
 		}
 		
 		@Override

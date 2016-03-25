@@ -1,9 +1,16 @@
 Changelog
 =================================================
 -------------------------------------------------
+TFP Tweaks 1.10
+-------------------------------------------------
+Bug Fixes
++Fixed tooltips for some heated TFC items not showing "Can Work", "Can Weld" and "Danger"
++Fixed Anvil recipes having different crafting values between the client and server. The minetweaker recipe now requires a crafting value to be specified in the recipe.
++Fixed Anvil recipes have a crafting value that is impossible to craft
+-------------------------------------------------
 TFP Tweaks 1.09
 -------------------------------------------------
-Bug Fix
+Hot Fix
 +Fixed crash from improper casting with mob damage from projectiles
 -------------------------------------------------
 TFP Tweaks 1.08

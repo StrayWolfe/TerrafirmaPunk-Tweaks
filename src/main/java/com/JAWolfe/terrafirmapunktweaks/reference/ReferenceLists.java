@@ -35,15 +35,13 @@ public class ReferenceLists
 			ItemStack listIS = anvilIngredList.get(i);
 			if(is != null && listIS != null)
 			{
-				if(is.getItem() != listIS.getItem())
-					return false;
-				
-				if(is.getItemDamage() != listIS.getItemDamage())
-					return false;
+				if(is.getItem() == listIS.getItem())
+				{
+					if(is.getItemDamage() == listIS.getItemDamage())
+						return true;
+				}
 			}
-			else if(is == null && listIS != null || is != null && listIS == null)
-				return false;
 		}
-		return true;
+		return false;
 	}
 }
