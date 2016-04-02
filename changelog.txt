@@ -1,6 +1,15 @@
 Changelog
 =================================================
 -------------------------------------------------
+TFP Tweaks 1.11
+-------------------------------------------------
+New Features
++Added blood to replace broken necromancy blood
++Added minetweaker method for adding recipes to the forestry squeezer that can use custom liquids
+
+Bug Fix
++Fixed indirectmagic damage to mobs causing crash
+-------------------------------------------------
 TFP Tweaks 1.10
 -------------------------------------------------
 Bug Fixes

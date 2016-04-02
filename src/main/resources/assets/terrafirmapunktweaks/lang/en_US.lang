@@ -14,9 +14,20 @@ gui.tfptweaks.steamtank=Steam Tank
 #=========
 #= Items =
 #=========
-item.Wooden Bucket Oil.name=Wooden Bucket Oil
+item.Wooden Bucket Oil.name=Wooden Bucket (Oil)
+item.Wooden Bucket Blood.name=Wooden Bucket (Blood)
 
 #===========
 #= Effects =
 #===========
 effect.bleed.postfix=Potion of Bleeding
+
+#==========
+#= Blocks =
+#==========
+tile.tfpBlood.name=Blood
+
+#==========
+#= Fluids =
+#==========
+fluid.tfpBlood=Blood

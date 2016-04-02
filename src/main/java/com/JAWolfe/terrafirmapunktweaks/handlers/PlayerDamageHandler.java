@@ -240,11 +240,13 @@ public class PlayerDamageHandler
 				//Add damage for indirect magic damage
 				if(ConfigSettings.VanillaMagicScaling && "indirectMagic".contentEquals(event.source.damageType))
 				{
+					event.source.getEntity().getEntityData().setBoolean("Attacking", true);
 					event.entity.attackEntityFrom(event.source, ConfigSettings.VanillaPvPNonWeaponDamageMultipier);
 					
 					if(event.entity instanceof EntityWitch || event.entity.getClass().toString().contains("EntityWitherWitch"))
 					{
 						//Direct hit of a magic bottle kills a witch
+						event.source.getEntity().getEntityData().setBoolean("Attacking", true);
 						event.entity.attackEntityFrom(event.source, 100000);
 					}
 				}

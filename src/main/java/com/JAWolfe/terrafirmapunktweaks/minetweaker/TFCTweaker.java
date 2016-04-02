@@ -1,6 +1,7 @@
 package com.JAWolfe.terrafirmapunktweaks.minetweaker;
 
 import com.JAWolfe.terrafirmapunktweaks.minetweaker.Buildcraft.AssemblyTable;
+import com.JAWolfe.terrafirmapunktweaks.minetweaker.Forestry.Squeezer;
 import com.JAWolfe.terrafirmapunktweaks.minetweaker.TFC.Anvil;
 import com.JAWolfe.terrafirmapunktweaks.minetweaker.TFC.Barrel;
 import com.JAWolfe.terrafirmapunktweaks.minetweaker.TFC.ItemHeat;
@@ -22,11 +23,16 @@ public class TFCTweaker
 			MineTweakerAPI.registerClass(Quern.class);
 			MineTweakerAPI.registerClass(Barrel.class);
 			MineTweakerAPI.registerClass(Anvil.class);
-		}
-		
-		if(Loader.isModLoaded("BuildCraft|Core"))
-		{
-			MineTweakerAPI.registerClass(AssemblyTable.class);
+			
+			if(Loader.isModLoaded("BuildCraft|Core"))
+			{
+				MineTweakerAPI.registerClass(AssemblyTable.class);
+			}
+			
+			if(Loader.isModLoaded("Forestry"))
+			{
+				MineTweakerAPI.registerClass(Squeezer.class);
+			}
 		}
 	}
 }

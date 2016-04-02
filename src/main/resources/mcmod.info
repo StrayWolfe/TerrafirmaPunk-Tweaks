@@ -14,7 +14,7 @@
         "screenshots": [],
         "parent": "",
         "requiredMods": ["Forge", "terrafirmacraft"],
-        "dependencies": ["terrafirmacraft", "steamcraft2", "Steamcraft"],
+        "dependencies": ["terrafirmacraft", "steamcraft2", "Steamcraft", "BuildCraft|Core", "Forestry"],
         "dependants": [],
         "useDependencyInformation": "true"
     }]

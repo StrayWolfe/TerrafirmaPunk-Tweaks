@@ -44,6 +44,6 @@ public class RecipeTweaks
 		if(Loader.isModLoaded("Steamcraft"))
 		{
 			//OreDictionary.registerOre("itemAxe", new ItemStack(SteamcraftItems.steamAxe, 1, OreDictionary.WILDCARD_VALUE));
-		}      
+		}
 	}
 }
