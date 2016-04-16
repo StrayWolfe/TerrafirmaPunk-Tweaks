@@ -16,6 +16,12 @@ gui.tfptweaks.steamtank=Steam Tank
 #=========
 item.Wooden Bucket Oil.name=Wooden Bucket (Oil)
 item.Wooden Bucket Blood.name=Wooden Bucket (Blood)
+item.Block Mold.name=Metal Press Mold: Block
+item.Fence Mold.name=Metal Press Mold: Fence
+item.Half Slab Mold.name=Metal Press Mold: Half Slab
+item.Mechanical Component Mold.name=Metal Press Mold: Mechanical Component
+item.Piston Mold.name=Metal Press Mold: Piston
+item.Wire Coil Mold.name=Metal Press Mold: Wire Coil
 
 #===========
 #= Effects =
