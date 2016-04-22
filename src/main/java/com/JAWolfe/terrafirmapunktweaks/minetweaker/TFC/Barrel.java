@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.bioxx.tfc.api.Crafting.BarrelLiquidToLiquidRecipe;
 import com.bioxx.tfc.api.Crafting.BarrelManager;
-import com.bioxx.tfc.api.Crafting.BarrelMultiItemRecipe;
 import com.bioxx.tfc.api.Crafting.BarrelRecipe;
 
 import minetweaker.IUndoableAction;
@@ -115,37 +114,31 @@ public class Barrel
 	
 	//BarrelMultiItemRecipe - Better for converting items as the outputstack size can match the input
 	@ZenMethod
-	public static void addItemConversion(IItemStack outputIS, IItemStack inputIS, ILiquidStack inputFS, boolean keepstacksize, int minTechLevel, boolean sealed, boolean allowAnyStack)
+	public static void addItemConversion(IItemStack outputIS, IItemStack inputIS, ILiquidStack inputFS, int minTechLevel, boolean sealed, boolean allowAnyStack)
 	{
 		ItemStack inputStack = MineTweakerMC.getItemStack(inputIS);
 		ItemStack outputStack = MineTweakerMC.getItemStack(outputIS);
 		FluidStack inputFluid = MineTweakerMC.getLiquidStack(inputFS);
 		
-		MineTweakerAPI.apply(new addItemConversionAction(inputStack, inputFluid, outputStack, sealed, minTechLevel, allowAnyStack, keepstacksize));
+		MineTweakerAPI.apply(new addItemConversionAction(inputStack, inputFluid, outputStack, sealed, minTechLevel, allowAnyStack));
 	}
 	
 	@ZenMethod
-	public static void addItemConversion(IItemStack outputIS, IItemStack inputIS, ILiquidStack inputFS, boolean keepstacksize, int minTechLevel, boolean sealed)
+	public static void addItemConversion(IItemStack outputIS, IItemStack inputIS, ILiquidStack inputFS, int minTechLevel, boolean sealed)
 	{
-		addItemConversion(outputIS, inputIS, inputFS, keepstacksize, minTechLevel, sealed, true);
+		addItemConversion(outputIS, inputIS, inputFS, minTechLevel, sealed, true);
 	}
 	
 	@ZenMethod
-	public static void addItemConversion(IItemStack outputIS, IItemStack inputIS, ILiquidStack inputFS, boolean keepstacksize, int minTechLevel)
+	public static void addItemConversion(IItemStack outputIS, IItemStack inputIS, ILiquidStack inputFS, int minTechLevel)
 	{
-		addItemConversion(outputIS, inputIS, inputFS, keepstacksize, minTechLevel, true, true);
-	}
-	
-	@ZenMethod
-	public static void addItemConversion(IItemStack outputIS, IItemStack inputIS, ILiquidStack inputFS, boolean keepstacksize)
-	{
-		addItemConversion(outputIS, inputIS, inputFS, keepstacksize, 1, true, true);
+		addItemConversion(outputIS, inputIS, inputFS, minTechLevel, true, true);
 	}
 	
 	@ZenMethod
 	public static void addItemConversion(IItemStack outputIS, IItemStack inputIS, ILiquidStack inputFS)
 	{
-		addItemConversion(outputIS, inputIS, inputFS, true, 1, true, true);
+		addItemConversion(outputIS, inputIS, inputFS, 1, true, true);
 	}
 	
 	@ZenMethod
@@ -355,7 +348,7 @@ public class Barrel
 		int minTechLevel;
 		boolean allowAnyStack;
 		
-		public addItemConversionAction(ItemStack inputIS, FluidStack inputFS, ItemStack outputIS, boolean sealed, int minTechLevel, boolean allowAnyStack, boolean keepstacksize)
+		public addItemConversionAction(ItemStack inputIS, FluidStack inputFS, ItemStack outputIS, boolean sealed, int minTechLevel, boolean allowAnyStack)
 		{
 			this.inputStack = inputIS;
 			this.inputFluid = inputFS;
@@ -363,12 +356,13 @@ public class Barrel
 			this.sealed = sealed;
 			this.minTechLevel =	minTechLevel;
 			this.allowAnyStack = allowAnyStack;
+			
 		}
 
 		@Override
 		public void apply() 
 		{
-			BarrelManager.getInstance().addRecipe(new BarrelMultiItemRecipe(inputStack, inputFluid, outputStack, inputFluid).setAllowAnyStack(allowAnyStack).setMinTechLevel(minTechLevel).setSealedRecipe(sealed));
+			BarrelManager.getInstance().addRecipe(new BarrelRecipe(inputStack, inputFluid, outputStack, inputFluid).setAllowAnyStack(allowAnyStack).setMinTechLevel(minTechLevel).setSealedRecipe(sealed));
 		}
 
 		@Override
