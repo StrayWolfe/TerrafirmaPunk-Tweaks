@@ -103,11 +103,10 @@
 //Add Item Conversion Recipe
 //-----------------------------------------------
 
-//OutputStack, InputStack, InputFluid(in mb), KeepStackSize (Default: true), MinTechLevel (Default: 1), Sealed (Default: true), AllowAnyStack (Default: true)
-//mods.tfptweaks.Barrel.addItemConversion(<terrafirmacraft:item.Mortar> * 16, <minecraft:sand> * 16, <liquid:limewater> * 100, false, 0, true, true);
-//mods.tfptweaks.Barrel.addItemConversion(<terrafirmacraft:item.Mortar> * 16, <minecraft:sand> * 16, <liquid:limewater> * 100, false, 0, true);
-//mods.tfptweaks.Barrel.addItemConversion(<terrafirmacraft:item.Mortar> * 16, <minecraft:sand> * 16, <liquid:limewater> * 100, false, 0);
-//mods.tfptweaks.Barrel.addItemConversion(<terrafirmacraft:item.Mortar> * 16, <minecraft:sand> * 16, <liquid:limewater> * 100, false);
+//OutputStack, InputStack, InputFluid(in mb), MinTechLevel (Default: 1), Sealed (Default: true), AllowAnyStack (Default: true)
+//mods.tfptweaks.Barrel.addItemConversion(<terrafirmacraft:item.Mortar> * 16, <minecraft:sand> * 16, <liquid:limewater> * 100, 0, true, true);
+//mods.tfptweaks.Barrel.addItemConversion(<terrafirmacraft:item.Mortar> * 16, <minecraft:sand> * 16, <liquid:limewater> * 100, 0, true);
+//mods.tfptweaks.Barrel.addItemConversion(<terrafirmacraft:item.Mortar> * 16, <minecraft:sand> * 16, <liquid:limewater> * 100, 0);
 //mods.tfptweaks.Barrel.addItemConversion(<terrafirmacraft:item.Mortar> * 16, <minecraft:sand> * 16, <liquid:limewater> * 100);
 
 //-----------------------------------------------
