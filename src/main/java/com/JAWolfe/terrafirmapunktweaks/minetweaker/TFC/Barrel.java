@@ -112,33 +112,46 @@ public class Barrel
 			MineTweakerAPI.apply(new removeItemFluidConversionAction(inputStack, inputFluid));
 	}	
 	
-	//BarrelMultiItemRecipe - Better for converting items as the outputstack size can match the input
 	@ZenMethod
-	public static void addItemConversion(IItemStack outputIS, IItemStack inputIS, ILiquidStack inputFS, int minTechLevel, boolean sealed, boolean allowAnyStack)
+	public static void addItemConversion(IItemStack outputIS, IItemStack inputIS, ILiquidStack inputFS, int minTechLevel, boolean sealed, int sealedTime, boolean allowAnyStack)
 	{
 		ItemStack inputStack = MineTweakerMC.getItemStack(inputIS);
 		ItemStack outputStack = MineTweakerMC.getItemStack(outputIS);
 		FluidStack inputFluid = MineTweakerMC.getLiquidStack(inputFS);
 		
-		MineTweakerAPI.apply(new addItemConversionAction(inputStack, inputFluid, outputStack, sealed, minTechLevel, allowAnyStack));
+		if(inputStack == null || inputStack.getItem() == null)
+			MineTweakerAPI.logError("Missing InputStack");
+		else if(inputStack.stackSize < 1)
+			MineTweakerAPI.logError("InputStack must be at least 1 item");
+		else if(inputFluid == null || inputFluid.getFluid() == null)
+			MineTweakerAPI.logError("Missing InputFluid");
+		else if(inputFluid.amount <= 0)
+			MineTweakerAPI.logError("InputFluid must contain more than 0 mb of fluid");
+		else if(outputStack == null || outputStack.getItem() == null)
+			MineTweakerAPI.logError("Missing OutputStack");
+		else
+		{
+			inputFluid.amount = inputFluid.amount/inputStack.stackSize;
+			MineTweakerAPI.apply(new addItemConversionAction(inputStack, inputFluid, outputStack, sealed, sealedTime, minTechLevel, allowAnyStack));
+		}
 	}
 	
 	@ZenMethod
-	public static void addItemConversion(IItemStack outputIS, IItemStack inputIS, ILiquidStack inputFS, int minTechLevel, boolean sealed)
+	public static void addItemConversion(IItemStack outputIS, IItemStack inputIS, ILiquidStack inputFS, int minTechLevel, boolean sealed, int sealedTime)
 	{
-		addItemConversion(outputIS, inputIS, inputFS, minTechLevel, sealed, true);
+		addItemConversion(outputIS, inputIS, inputFS, minTechLevel, sealed, sealedTime, true);
 	}
 	
 	@ZenMethod
 	public static void addItemConversion(IItemStack outputIS, IItemStack inputIS, ILiquidStack inputFS, int minTechLevel)
 	{
-		addItemConversion(outputIS, inputIS, inputFS, minTechLevel, true, true);
+		addItemConversion(outputIS, inputIS, inputFS, minTechLevel, true, 8, true);
 	}
 	
 	@ZenMethod
 	public static void addItemConversion(IItemStack outputIS, IItemStack inputIS, ILiquidStack inputFS)
 	{
-		addItemConversion(outputIS, inputIS, inputFS, 1, true, true);
+		addItemConversion(outputIS, inputIS, inputFS, 1, true, 8, true);
 	}
 	
 	@ZenMethod
@@ -263,8 +276,14 @@ public class Barrel
 			{
 				if (BarrelList.get(i) != null)
 				{
-					if (BarrelList.get(i).matches(inputStack, inputFluid))
+					ItemStack recipeIS = BarrelList.get(i).getInItem();
+					FluidStack recipeFS = BarrelList.get(i).getInFluid();
+					
+					if (recipeIS != null && inputStack != null && recipeIS.isItemEqual(inputStack) &&
+						recipeFS != null && inputFluid != null && recipeFS.isFluidStackIdentical(inputFluid))
+					{
 						BarrelList.remove(i--);
+					}
 				}
 			}
 		}
@@ -301,9 +320,15 @@ public class Barrel
 			for (int i = 0; i < BarrelList.size(); i++)
 			{
 				if (BarrelList.get(i) != null)
-				{
-					if (BarrelList.get(i).matches(inputStack, inputFluid))
+				{					
+					ItemStack recipeIS = BarrelList.get(i).getInItem();
+					FluidStack recipeFS = BarrelList.get(i).getInFluid();
+					
+					if (recipeIS != null && inputStack != null && recipeIS.isItemEqual(inputStack) &&
+						recipeFS != null && inputFluid != null && recipeFS.isFluidStackIdentical(inputFluid))
+					{
 						BarrelList.remove(i--);
+					}
 				}
 			}
 		}
@@ -345,15 +370,17 @@ public class Barrel
 		ItemStack outputStack;
 		FluidStack inputFluid;
 		boolean sealed;
+		int sealedTime;
 		int minTechLevel;
 		boolean allowAnyStack;
 		
-		public addItemConversionAction(ItemStack inputIS, FluidStack inputFS, ItemStack outputIS, boolean sealed, int minTechLevel, boolean allowAnyStack)
+		public addItemConversionAction(ItemStack inputIS, FluidStack inputFS, ItemStack outputIS, boolean sealed, int sealedTime, int minTechLevel, boolean allowAnyStack)
 		{
 			this.inputStack = inputIS;
 			this.inputFluid = inputFS;
 			this.outputStack = outputIS;
 			this.sealed = sealed;
+			this.sealedTime = sealedTime;
 			this.minTechLevel =	minTechLevel;
 			this.allowAnyStack = allowAnyStack;
 			
@@ -362,7 +389,7 @@ public class Barrel
 		@Override
 		public void apply() 
 		{
-			BarrelManager.getInstance().addRecipe(new BarrelRecipe(inputStack, inputFluid, outputStack, inputFluid).setAllowAnyStack(allowAnyStack).setMinTechLevel(minTechLevel).setSealedRecipe(sealed));
+			BarrelManager.getInstance().addRecipe(new BarrelRecipe(inputStack, inputFluid, outputStack, inputFluid, sealedTime).setAllowAnyStack(allowAnyStack).setMinTechLevel(minTechLevel).setSealedRecipe(sealed));
 		}
 
 		@Override
@@ -386,8 +413,14 @@ public class Barrel
 			{
 				if (BarrelList.get(i) != null)
 				{
-					if (BarrelList.get(i).matches(inputStack, inputFluid))
+					ItemStack recipeIS = BarrelList.get(i).getInItem();
+					FluidStack recipeFS = BarrelList.get(i).getInFluid();
+					
+					if (recipeIS != null && inputStack != null && recipeIS.isItemEqual(inputStack) &&
+						recipeFS != null && inputFluid != null && recipeFS.isFluidStackIdentical(inputFluid))
+					{
 						BarrelList.remove(i--);
+					}
 				}
 			}
 		}

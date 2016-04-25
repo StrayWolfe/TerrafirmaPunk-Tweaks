@@ -1,6 +1,7 @@
 package com.JAWolfe.terrafirmapunktweaks.minetweaker.Forestry;
 
 import forestry.api.recipes.RecipeManagers;
+import forestry.factory.recipes.SqueezerRecipeManager;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
@@ -39,7 +40,7 @@ public class Squeezer
 		private ItemStack byProduct;
 		private FluidStack outputFluid;
 		private int tickcount;
-		private int chance;
+		private int chance = 0;
 		
 		public addSqueezerAction(FluidStack output, int ticks, ItemStack[] inputs)
 		{
@@ -67,22 +68,45 @@ public class Squeezer
 		@Override
 		public String describe() 
 		{
-			return null;
+			String inputString = "";
+			for(int i = 0; i < inputStacks.length; i++)
+			{
+				inputString.concat(inputStacks[i].getDisplayName() + " ");
+			}
+			
+			if(byProduct == null)
+				return "Adding items '" + inputString + "' to squeezer yeilding '" + outputFluid.getLocalizedName() + "'";
+			else
+				return "Adding items '" + inputString + "' to squeezer yeilding '" + outputFluid.getLocalizedName() + 
+						" with the byproduct " + byProduct.getDisplayName() + "'";
 		}
 
 		@Override
 		public boolean canUndo() 
 		{
-			return false;
+			return true;
 		}
 		
 		@Override
-		public void undo() {
+		public void undo() 
+		{
+			RecipeManagers.squeezerManager.removeRecipe(SqueezerRecipeManager.findMatchingRecipe(inputStacks));
 		}
 
 		@Override
-		public String describeUndo() {
-			return null;
+		public String describeUndo() 
+		{
+			String inputString = "";
+			for(int i = 0; i < inputStacks.length; i++)
+			{
+				inputString = inputString.concat(inputStacks[i].getDisplayName() + " ");
+			}
+			
+			if(byProduct == null)
+				return "Removing items '" + inputString + "' from squeezer yeilding '" + outputFluid.getLocalizedName() + "'";
+			else
+				return "Removing items '" + inputString + "' from squeezer yeilding '" + outputFluid.getLocalizedName() + 
+						" with the byproduct " + byProduct.getDisplayName() + "'";
 		}
 
 		@Override

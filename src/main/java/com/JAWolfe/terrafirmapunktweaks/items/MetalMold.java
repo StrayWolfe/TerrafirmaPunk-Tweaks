@@ -1,14 +1,12 @@
 package com.JAWolfe.terrafirmapunktweaks.items;
 
 import com.JAWolfe.terrafirmapunktweaks.reference.References;
-import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Items.ItemTerra;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 
 public class MetalMold extends ItemTerra
 {
