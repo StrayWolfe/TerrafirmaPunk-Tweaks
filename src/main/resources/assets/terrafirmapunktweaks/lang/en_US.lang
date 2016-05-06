@@ -32,6 +32,27 @@ effect.bleed.postfix=Potion of Bleeding
 #= Blocks =
 #==========
 tile.tfpBlood.name=Blood
+tile.TFPBrickOven Granite.name=Granite Brick Oven
+tile.TFPBrickOven Diorite.name=Diorite Brick Oven
+tile.TFPBrickOven Gabbro.name=Gabbro Brick Oven
+tile.TFPBrickOven Shale.name=Shale Brick Oven
+tile.TFPBrickOven Claystone.name=Claystone Brick Oven
+tile.TFPBrickOven Rock Salt.name=Rock Salt Brick Oven
+tile.TFPBrickOven Limestone.name=Limestone Brick Oven
+tile.TFPBrickOven Conglomerate.name=Conglomerate Brick Oven
+tile.TFPBrickOven Dolomite.name=Dolomite Brick Oven
+tile.TFPBrickOven Chert.name=Chert Brick Oven
+tile.TFPBrickOven Chalk.name=Chalk Brick Oven
+tile.TFPBrickOven Rhyolite.name=Rhyolite Brick Oven
+tile.TFPBrickOven Basalt.name=Basalt Brick Oven
+tile.TFPBrickOven Andesite.name=Andesite Brick Oven
+tile.TFPBrickOven Dacite.name=Dacite Brick Oven
+tile.TFPBrickOven Quartzite.name=Quartzite Brick Oven
+tile.TFPBrickOven Slate.name=Slate Brick Oven
+tile.TFPBrickOven Phyllite.name=Phyllite Brick Oven
+tile.TFPBrickOven Schist.name=Schist Brick Oven
+tile.TFPBrickOven Gneiss.name=Gneiss Brick Oven
+tile.TFPBrickOven Marble.name=Marble Brick Oven
 
 #==========
 #= Fluids =

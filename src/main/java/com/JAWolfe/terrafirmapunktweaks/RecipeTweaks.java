@@ -2,7 +2,11 @@ package com.JAWolfe.terrafirmapunktweaks;
 
 import java.util.List;
 
+import com.JAWolfe.terrafirmapunktweaks.handlers.FuelManager;
 import com.JAWolfe.terrafirmapunktweaks.reference.ConfigSettings;
+import com.bioxx.tfc.api.TFCBlocks;
+import com.bioxx.tfc.api.TFCItems;
+import com.bioxx.tfc.api.Constant.Global;
 
 import cpw.mods.fml.common.Loader;
 import net.minecraft.item.Item;
@@ -40,7 +44,14 @@ public class RecipeTweaks
 	}
 	
 	public static void RecipeFixes()
-	{
+	{		
+		for(int i = 0; i < Global.WOOD_ALL.length; i++)
+		{
+			FuelManager.getInstance().addFuel(new ItemStack(TFCItems.logs, 1, i));
+		}
+		
+		FuelManager.getInstance().addFuel(new ItemStack(Item.getItemFromBlock(TFCBlocks.peat), 1));
+		
 		if(Loader.isModLoaded("Steamcraft"))
 		{
 			//OreDictionary.registerOre("itemAxe", new ItemStack(SteamcraftItems.steamAxe, 1, OreDictionary.WILDCARD_VALUE));

@@ -18,6 +18,8 @@ public class TFCTweaker
 	{
 		if (Loader.isModLoaded("MineTweaker3") && ConfigSettings.MineTweakerSupport)
 		{
+			MineTweakerAPI.registerClass(BrickOven.class);
+			
 			MineTweakerAPI.registerClass(ItemHeat.class);
 			MineTweakerAPI.registerClass(Loom.class);
 			MineTweakerAPI.registerClass(Quern.class);

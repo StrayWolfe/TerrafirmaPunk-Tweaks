@@ -1,6 +1,14 @@
 Changelog
 =================================================
 -------------------------------------------------
+TFP Tweaks 1.14
+-------------------------------------------------
+New Features
++Added a new block, Brick Oven. Brick oven acts like a firepit and vanilla furnace
+
+Tweaks
++Loom minetweaker method addRecipe code optimization
+-------------------------------------------------
 TFP Tweaks 1.13
 -------------------------------------------------
 Bug Fixes

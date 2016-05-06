@@ -1,5 +1,8 @@
 package com.JAWolfe.terrafirmapunktweaks.blocks;
 
+import com.bioxx.tfc.api.Constant.Global;
+import com.google.common.collect.ObjectArrays;
+
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import flaxbeard.steamcraft.SteamcraftBlocks;
@@ -9,14 +12,27 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 public class TFPBlocks 
 {
+	
 	public static Block tweakedboiler;
 	public static Block tweakedboilerOn;
 	public static Block tweakedFlashBoiler;
+	public static Block[] tfpBrickOven;
 	public static Block tfpBlood;
 	public static Fluid tfpFluidBlood;
 	
+	public static int brickOvenRenderID;
+	
 	public static void initialise()
 	{
+		String[] IgStone = ObjectArrays.concat(Global.STONE_IGEX, Global.STONE_IGIN, String.class);
+		tfpBrickOven = new Block[IgStone.length];
+		
+		for (int i = 0; i < IgStone.length; i++)
+		{
+			tfpBrickOven[i] = new TFPBrickOven(i).setBlockName("TFPBrickOven " + IgStone[i]);
+			GameRegistry.registerBlock(tfpBrickOven[i], "tfpBrickOven" + IgStone[i]);
+		}
+		
 		if(Loader.isModLoaded("Steamcraft"))
 		{
 			tweakedboiler = new TweakedBoiler(false).setBlockName(SteamcraftBlocks.boiler.getUnlocalizedName().substring(5)).setHardness(5.0F).setResistance(10.0F);

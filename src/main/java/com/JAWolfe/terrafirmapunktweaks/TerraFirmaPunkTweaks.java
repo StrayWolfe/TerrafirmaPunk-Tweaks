@@ -14,6 +14,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = References.ModID, name = References.ModName, version = References.ModVersion, dependencies = References.ModDependencies)
@@ -44,9 +45,13 @@ public class TerraFirmaPunkTweaks
     	RecipeTweaks.RecipeFixes();
     	
     	proxy.setupFluids();
+    	
+    	NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GUIHandler());
     	   	
     	MinecraftForge.EVENT_BUS.register(new PlayerInteractionHandler());
     	MinecraftForge.EVENT_BUS.register(new PlayerDamageHandler());
+    	
+    	proxy.registerRenderInformation();
     	
     	proxy.registerWAILA();
 	}

@@ -35,11 +35,13 @@ public class PlayerDamageHandler
 	 **/
 	@SubscribeEvent
 	public void onDamaged(LivingHurtEvent event)
-	{		
+	{	
 		//Reset Attacking tag on attacking entity
 		if(event.source.getEntity() != null && event.source.getEntity().getEntityData().hasKey("Attacking") &&
 				event.source.getEntity().getEntityData().getBoolean("Attacking"))
+		{
 			event.source.getEntity().getEntityData().setBoolean("Attacking", false);
+		}
 		
 		//Check if damage is already processed by TFC
 		if (event.source == DamageSource.onFire || event.source == DamageSource.fall || event.source == DamageSource.drown ||
@@ -91,7 +93,7 @@ public class PlayerDamageHandler
 	 */
 	@SubscribeEvent
 	public void entityAttack(LivingAttackEvent event)
-	{				
+	{
 		//Don't run if client sided
 		if(event.entityLiving.worldObj.isRemote)
 			return;

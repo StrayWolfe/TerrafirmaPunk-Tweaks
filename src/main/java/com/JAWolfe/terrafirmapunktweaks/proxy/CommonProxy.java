@@ -3,6 +3,7 @@ package com.JAWolfe.terrafirmapunktweaks.proxy;
 import com.JAWolfe.terrafirmapunktweaks.blocks.TFPBlocks;
 import com.JAWolfe.terrafirmapunktweaks.items.TFPItems;
 import com.JAWolfe.terrafirmapunktweaks.tiles.TEBoiler;
+import com.JAWolfe.terrafirmapunktweaks.tiles.TEBrickOven;
 import com.JAWolfe.terrafirmapunktweaks.tiles.TEFlashBoiler;
 import com.bioxx.tfc.api.TFCItems;
 import com.sirolf2009.necromancy.item.ItemGeneric;
@@ -20,6 +21,8 @@ public class CommonProxy
 {
 	public void registerTileEntities()
 	{
+		GameRegistry.registerTileEntity(TEBrickOven.class, "TEBrickOven");
+				
 		if(Loader.isModLoaded("Steamcraft"))
 		{
 			GameRegistry.registerTileEntity(TEBoiler.class, "TEBoiler");
@@ -39,6 +42,11 @@ public class CommonProxy
 			FluidContainerRegistry.registerFluidContainer(new FluidStack(TFPBlocks.tfpFluidBlood, 1000), new ItemStack(TFPItems.CustomBucketBlood), new ItemStack(TFCItems.woodenBucketEmpty));
 			FluidContainerRegistry.registerFluidContainer(new FluidStack(TFPBlocks.tfpFluidBlood, 250), ItemGeneric.getItemStackFromName("Jar of Blood"), new ItemStack(TFCItems.glassBottle));
 		}
+	}
+	
+	public void registerRenderInformation()
+	{
+		//Not server-sided
 	}
 	
 	public void registerWAILA()

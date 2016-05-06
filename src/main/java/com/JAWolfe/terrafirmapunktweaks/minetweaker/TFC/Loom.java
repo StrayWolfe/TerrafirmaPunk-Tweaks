@@ -107,7 +107,7 @@ public class Loom
 			{
 				if (LoomList.get(i) != null)
 				{
-					if (LoomList.get(i).matches(inputStack))
+					if (LoomList.get(i).matches(inputStack) && LoomList.get(i).resultMatches(outputStack))
 						LoomList.remove(i--);
 				}
 			}
