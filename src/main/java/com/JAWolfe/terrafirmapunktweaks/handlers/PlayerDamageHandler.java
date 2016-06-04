@@ -85,6 +85,14 @@ public class PlayerDamageHandler
 			
 			event.ammount = applyArmorCalculations(event.entityLiving, event.source, event.ammount > damage ? event.ammount : damage);
 		}
+		
+		//Fix Cogs of the Machine's Custom Damage
+		else if(event.ammount < 20 && ConfigSettings.VanillaDamageScaling && event.source.toString().contains("deatrathias"))
+		{
+			float damage = (event.ammount * ConfigSettings.VanillaMobDamageMultipier) / 2;
+			
+			event.ammount = applyArmorCalculations(event.entityLiving, event.source, event.ammount > damage ? event.ammount : damage);
+		}
 	}
 	
 	/**

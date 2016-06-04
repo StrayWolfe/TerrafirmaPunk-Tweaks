@@ -1,6 +1,18 @@
 Changelog
 =================================================
 -------------------------------------------------
+TFP Tweaks 1.16
+-------------------------------------------------
+New Features
++Added Immersive Engineering Metal Press Molds for nuts, bolts, washers, bearing and nails
++Added TFC Barrel compatibility for whale oil and a whale oil bucket
++Added Olive oil bucket
++Added Minetweaker methods to add fuels for the Immersive Engineering diesel engines and Railcraft liquid boilers 
+
+Tweaks
++Fixed damage from Cogs of the Machine Mechanical Saw
+
+-------------------------------------------------
 TFP Tweaks 1.15
 -------------------------------------------------
 Tweaks

@@ -32,6 +32,8 @@ public class TerraFirmaPunkTweaks
     	ConfigHandler.init(event.getSuggestedConfigurationFile());
 		FMLCommonHandler.instance().bus().register(new ConfigHandler());
 		
+		proxy.registerFluids();
+		
 		TFPItems.initialise();
 		
     	TFPBlocks.initialise();

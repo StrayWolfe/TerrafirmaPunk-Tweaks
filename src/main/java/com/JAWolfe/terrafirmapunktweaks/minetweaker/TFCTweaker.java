@@ -2,6 +2,8 @@ package com.JAWolfe.terrafirmapunktweaks.minetweaker;
 
 import com.JAWolfe.terrafirmapunktweaks.minetweaker.Buildcraft.AssemblyTable;
 import com.JAWolfe.terrafirmapunktweaks.minetweaker.Forestry.Squeezer;
+import com.JAWolfe.terrafirmapunktweaks.minetweaker.IE.IEFuels;
+import com.JAWolfe.terrafirmapunktweaks.minetweaker.Railcraft.RCBoiler;
 import com.JAWolfe.terrafirmapunktweaks.reference.ConfigSettings;
 
 import cpw.mods.fml.common.Loader;
@@ -23,6 +25,16 @@ public class TFCTweaker
 			if(Loader.isModLoaded("Forestry"))
 			{
 				MineTweakerAPI.registerClass(Squeezer.class);
+			}
+			
+			if(Loader.isModLoaded("ImmersiveEngineering"))
+			{
+				MineTweakerAPI.registerClass(IEFuels.class);
+			}
+			
+			if(Loader.isModLoaded("Railcraft"))
+			{
+				MineTweakerAPI.registerClass(RCBoiler.class);
 			}
 		}
 	}
