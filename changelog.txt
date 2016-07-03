@@ -1,6 +1,16 @@
 Changelog
 =================================================
 -------------------------------------------------
+TFP Tweaks 1.17
+-------------------------------------------------
+New Features
++Added Necromancy Summoning Altar Compatibility
++Add Hopper Metal Press
+
+Tweaks
++Vanilla chests can no longer be placed
+
+-------------------------------------------------
 TFP Tweaks 1.16
 -------------------------------------------------
 New Features

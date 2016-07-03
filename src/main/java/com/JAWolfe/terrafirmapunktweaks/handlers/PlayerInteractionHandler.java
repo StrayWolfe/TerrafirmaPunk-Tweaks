@@ -103,6 +103,16 @@ public class PlayerInteractionHandler
 						event.entityPlayer.getCurrentEquippedItem().stackSize--;
 				}
 			}
+			
+			if(event.entityPlayer.getCurrentEquippedItem().getItem() == Item.getItemFromBlock(Blocks.chest))
+			{
+				event.setCanceled(true);
+
+				if(event.entityPlayer.getCurrentEquippedItem().stackSize == 1)
+					event.entityPlayer.setCurrentItemOrArmor(0, null);
+				else
+					event.entityPlayer.getCurrentEquippedItem().stackSize--;
+			}
 		}
 	}
 	

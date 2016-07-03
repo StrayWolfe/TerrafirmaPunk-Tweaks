@@ -11,6 +11,11 @@
 gui.tfptweaks.watertank=Water Tank
 gui.tfptweaks.steamtank=Steam Tank
 
+#============
+#= Entities =
+#============
+entity.minionNecro.name=Minion
+
 #=========
 #= Items =
 #=========
@@ -29,6 +34,8 @@ item.Bolt Mold.name=Metal Press Mold: Bolt
 item.Nail Mold.name=Metal Press Mold: Nail
 item.Nut Mold.name=Metal Press Mold: Nut
 item.Washer Mold.name=Metal Press Mold: Washer
+item.Hopper Mold.name=Metal Press Mold: Hopper
+item.TFPNecronomicon.name=Necronomicon
 
 #===========
 #= Effects =
@@ -61,6 +68,9 @@ tile.TFPBrickOven Phyllite.name=Phyllite Brick Oven
 tile.TFPBrickOven Schist.name=Schist Brick Oven
 tile.TFPBrickOven Gneiss.name=Gneiss Brick Oven
 tile.TFPBrickOven Marble.name=Marble Brick Oven
+tile.tfpSummoningAltar.name=Summoning Altar
+tile.tfpAltarBuildingBlock.name=Summoning Altar
+tile.tfpLightningRod.name=Lightning Rod
 
 #==========
 #= Fluids =

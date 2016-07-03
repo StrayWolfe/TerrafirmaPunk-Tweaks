@@ -21,6 +21,9 @@ public class TFPBlocks
 	public static Block tfpBlood;
 	public static Block oliveOil;
 	public static Block tfpWhaleOil;
+	public static Block tfpAltar;
+	public static Block tfpAltarBlock;
+	public static Block tfpLightningRod;
 	
 	public static int brickOvenRenderID;
 	
@@ -43,10 +46,12 @@ public class TFPBlocks
 			tweakedboiler = new TweakedBoiler(false).setBlockName(SteamcraftBlocks.boiler.getUnlocalizedName().substring(5)).setHardness(5.0F).setResistance(10.0F);
 			tweakedboilerOn = new TweakedBoiler(true).setBlockName(SteamcraftBlocks.boilerOn.getUnlocalizedName().substring(5)).setHardness(5.0F).setResistance(10.0F);
 			tweakedFlashBoiler = new TweakedFlashBoiler().setBlockName(SteamcraftBlocks.flashBoiler.getUnlocalizedName().substring(5)).setHardness(5.0f).setResistance(10.0F);
+			tfpLightningRod = new BlockTFPLigntningRod().setBlockName("tfpLightningRod");
 			
 			GameRegistry.registerBlock(tweakedboiler, "tweakedboiler");
 			GameRegistry.registerBlock(tweakedboilerOn, "tweakedboilerOn");
 			GameRegistry.registerBlock(tweakedFlashBoiler, "tweakedFlashBoiler");
+			GameRegistry.registerBlock(tfpLightningRod, "tfpLightningRod");
 		}
 		
 		if(Loader.isModLoaded("necromancy"))
@@ -54,6 +59,12 @@ public class TFPBlocks
 			tfpBlood = new TFPCustomFluids(TFPFluids.tfpFluidBlood, Material.water).setBlockName("tfpBlood");			
 			GameRegistry.registerBlock(tfpBlood, "tfpBlood");
 			TFPFluids.tfpFluidBlood.setBlock(tfpBlood);
+			
+			tfpAltar = new BlockTFPAltar().setHardness(4).setBlockName("tfpSummoningAltar");
+			GameRegistry.registerBlock(tfpAltar, "tfpSummoningAltar");
+			
+			tfpAltarBlock = new BlockTFPAltarBlock().setHardness(4).setBlockName("tfpAltarBuildingBlock");
+			GameRegistry.registerBlock(tfpAltarBlock, "tfpAltarBuildingBlock");
 		}
 		
 		if(Loader.isModLoaded("steamcraft2"))

@@ -2,6 +2,7 @@ package com.JAWolfe.terrafirmapunktweaks.proxy;
 
 import com.JAWolfe.terrafirmapunktweaks.TFPFluids;
 import com.JAWolfe.terrafirmapunktweaks.items.TFPItems;
+import com.JAWolfe.terrafirmapunktweaks.tiles.TEAltar;
 import com.JAWolfe.terrafirmapunktweaks.tiles.TEBoiler;
 import com.JAWolfe.terrafirmapunktweaks.tiles.TEBrickOven;
 import com.JAWolfe.terrafirmapunktweaks.tiles.TEFlashBoiler;
@@ -28,6 +29,10 @@ public class CommonProxy
 		{
 			GameRegistry.registerTileEntity(TEBoiler.class, "TEBoiler");
 			GameRegistry.registerTileEntity(TEFlashBoiler.class, "TEFlashBoiler");
+		}
+		if(Loader.isModLoaded("necromancy"))
+		{
+			GameRegistry.registerTileEntity(TEAltar.class, "TEAltar");
 		}
 	}
 	

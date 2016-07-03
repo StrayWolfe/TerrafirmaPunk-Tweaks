@@ -21,6 +21,8 @@ public class TFPItems
 	public static Item NailMold;
 	public static Item NutMold;
 	public static Item WasherMold;
+	public static Item HopperMold;
+	public static Item TFPNecronomicon;
 	
 	public static void initialise()
 	{
@@ -38,6 +40,9 @@ public class TFPItems
 		{
 			CustomBucketBlood = new TFPCustomBucket().setUnlocalizedName("Wooden Bucket Blood");
 			GameRegistry.registerItem(CustomBucketBlood, CustomBucketBlood.getUnlocalizedName());
+			
+			TFPNecronomicon = new TFPNecronomicon().setUnlocalizedName("TFPNecronomicon");
+			GameRegistry.registerItem(TFPNecronomicon, TFPNecronomicon.getUnlocalizedName());
 		}
 		
 		if(Loader.isModLoaded("ImmersiveEngineering"))
@@ -53,6 +58,7 @@ public class TFPItems
 			NailMold = new MetalMold().setUnlocalizedName("Nail Mold");
 			NutMold = new MetalMold().setUnlocalizedName("Nut Mold");
 			WasherMold = new MetalMold().setUnlocalizedName("Washer Mold");
+			HopperMold = new MetalMold().setUnlocalizedName("Hopper Mold");
 			
 			GameRegistry.registerItem(BlockMold, BlockMold.getUnlocalizedName());
 			GameRegistry.registerItem(FenceMold, FenceMold.getUnlocalizedName());
@@ -65,6 +71,7 @@ public class TFPItems
 			GameRegistry.registerItem(NailMold, NailMold.getUnlocalizedName());
 			GameRegistry.registerItem(NutMold, NutMold.getUnlocalizedName());
 			GameRegistry.registerItem(WasherMold, WasherMold.getUnlocalizedName());
+			GameRegistry.registerItem(HopperMold, HopperMold.getUnlocalizedName());
 		}
 		
 		if(Loader.isModLoaded("steamcraft2"))
