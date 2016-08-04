@@ -24,6 +24,7 @@ public class TFPBlocks
 	public static Block tfpAltar;
 	public static Block tfpAltarBlock;
 	public static Block tfpLightningRod;
+	public static Block blockWolframite;
 	
 	public static int brickOvenRenderID;
 	
@@ -40,6 +41,9 @@ public class TFPBlocks
 		
 		oliveOil = new BlockOliveOil(TFCFluids.OLIVEOIL).setHardness(100.0F).setLightOpacity(3).setBlockName("OliveOil");
 		GameRegistry.registerBlock(oliveOil,"OliveOil");
+		
+		blockWolframite = new BlockWolframite(Material.rock).setHardness(10F).setResistance(10F).setBlockName("Wolframite");
+		GameRegistry.registerBlock(blockWolframite, "OreWolferamite");
 		
 		if(Loader.isModLoaded("Steamcraft"))
 		{

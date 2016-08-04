@@ -77,3 +77,15 @@ tile.tfpLightningRod.name=Lightning Rod
 #==========
 fluid.tfpBlood=Blood
 fluid.tfpWhaleOil=Whale Oil
+
+#=======
+#= Ore =
+#=======
+#== Ore Items ==
+item.Ore.Wolframite.name=Wolframite
+item.Ore.Rich Wolframite.name=Rich Wolframite
+item.Ore.Poor Wolframite.name=Poor Wolframite
+item.Small Ore.Wolframite.name=Small Wolframite
+
+#== Ore Blocks ==
+tile.Wolframite.name=Wolframite

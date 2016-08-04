@@ -55,6 +55,8 @@ public class TerraFirmaPunkTweaks
     	
     	proxy.registerRenderInformation();
     	
+    	proxy.registerOreGen();
+    	
     	proxy.registerWAILA();
 	}
     

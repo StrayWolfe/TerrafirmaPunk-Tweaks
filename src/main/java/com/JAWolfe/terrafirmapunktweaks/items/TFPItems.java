@@ -1,5 +1,8 @@
 package com.JAWolfe.terrafirmapunktweaks.items;
 
+import com.JAWolfe.terrafirmapunktweaks.reference.Globals;
+import com.bioxx.tfc.api.Metal;
+
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
@@ -24,10 +27,21 @@ public class TFPItems
 	public static Item HopperMold;
 	public static Item TFPNecronomicon;
 	
+	public static Item tungstenIngot;
+	public static Item tungstenIngot2x;
+	public static Item tungstenUnshaped;
+	
+	public static Item oreChunk;
+	
 	public static void initialise()
 	{
 		CustomBucketOliveOil = new TFPCustomBucket().setUnlocalizedName("Wooden Bucket Olive Oil");
 		GameRegistry.registerItem(CustomBucketOliveOil, CustomBucketOliveOil.getUnlocalizedName());
+		
+		Globals.TUNGSTEN = new Metal("Tungsten", tungstenUnshaped, tungstenIngot);
+		
+		oreChunk = new ItemTFPOre().setFolder("ore/").setUnlocalizedName("Ore");
+		GameRegistry.registerItem(oreChunk, oreChunk.getUnlocalizedName());
 		
 		if(Loader.isModLoaded("BuildCraft|Core"))
 		{

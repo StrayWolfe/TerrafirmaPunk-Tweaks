@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import steamcraft.common.blocks.machines.BlockLightningRod;
-import steamcraft.common.init.InitBlocks;
 
 public class BlockTFPLigntningRod extends BlockLightningRod
 {
