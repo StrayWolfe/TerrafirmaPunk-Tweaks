@@ -13,6 +13,7 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import flaxbeard.steamcraft.SteamcraftBlocks;
+import forestry.api.storage.BackpackStowEvent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -31,22 +32,42 @@ public class PlayerInteractionHandler
 {	
 	@SubscribeEvent
 	public void onItemPickup(EntityItemPickupEvent event)
-	{
-		EntityItem item = event.item;
-		ItemStack is = item.getEntityItem();
-		EntityPlayer player = event.entityPlayer;
-		Item droppedItem = is.getItem();
-		
-		if(droppedItem.equals(Item.getItemFromBlock(Blocks.chest)) && ConfigSettings.VanillaChestConversion)
+	{		
+		if(event.item.getEntityItem().getItem().equals(Item.getItemFromBlock(Blocks.chest)) &&
+				ConfigSettings.VanillaChestConversion)
 		{	
+			EntityItem item = event.item;
+			EntityPlayer player = event.entityPlayer;
+			
 			item.delayBeforeCanPickup = 100;
 			item.setDead();
 			item.setInvisible(true);
 			Random rand = player.worldObj.rand;
 			player.worldObj.playSoundAtEntity(player, "random.pop", 0.2F, ((rand.nextFloat() - rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-			
-			player.inventory.addItemStackToInventory(new ItemStack(TFCBlocks.chest, 1, 0));
+
+			if(item.getEntityItem().stackSize == 0)
+				player.inventory.addItemStackToInventory(new ItemStack(TFCBlocks.chest));
+			else
+				player.inventory.addItemStackToInventory(new ItemStack(TFCBlocks.chest, item.getEntityItem().stackSize));
+
+			for(int i = 0; i < player.inventory.getSizeInventory(); i++)
+			{
+				ItemStack is = player.inventory.getStackInSlot(i);
+				
+				if(is != null && is.getItem().equals(Item.getItemFromBlock(Blocks.chest)))
+				{
+					player.inventory.setInventorySlotContents(i, new ItemStack(TFCBlocks.chest, is.stackSize - 1));
+				}
+			}
 		}
+	}
+	
+	@SubscribeEvent
+	public void stowItemBackpack(BackpackStowEvent event)
+	{
+		if(event.stackToStow != null && event.stackToStow.getItem().equals(Item.getItemFromBlock(Blocks.chest))  &&
+				ConfigSettings.VanillaChestConversion)
+			event.setCanceled(true);
 	}
 	
 	@SubscribeEvent

@@ -97,7 +97,10 @@ tasks.build.dependsOn('sourceJar', 'deobfJar')
 
 processResources 
 {
-	// First we just copy in the mcmod.info file
+	inputs.property "mod_version", project.config.mod_version
+	inputs.property "tfc_version", project.config.tfc_version
+    inputs.property "minecraft_version", project.config.minecraft_version
+	
 	from(sourceSets.main.resources.srcDirs) 
 	{
         include '**/*.info'
