@@ -99,12 +99,12 @@ public class PlayerInteractionHandler
 		{
 			if(Loader.isModLoaded("Steamcraft"))
 			{
-				if(event.entityPlayer.getCurrentEquippedItem().getItem() == Item.getItemFromBlock(SteamcraftBlocks.boiler) && ConfigSettings.FSPBoilerWaterFix)
+				if(itemInHand.getItem() == Item.getItemFromBlock(SteamcraftBlocks.boiler) && ConfigSettings.FSPBoilerWaterFix)
 				{
 					event.setCanceled(true);
 					handleBlockPlacement(event.entityPlayer, event.entityLiving, event.world, TFPBlocks.tweakedboiler, event.x, event.y, event.z, event.face);
 				}			
-				else if(event.entityPlayer.getCurrentEquippedItem().getItem() == Item.getItemFromBlock(SteamcraftBlocks.flashBoiler) && ConfigSettings.FSPFlashBoilerWaterFix)
+				else if(itemInHand.getItem() == Item.getItemFromBlock(SteamcraftBlocks.flashBoiler) && ConfigSettings.FSPFlashBoilerWaterFix)
 				{
 					event.setCanceled(true);
 					switch(event.face)
@@ -118,21 +118,21 @@ public class PlayerInteractionHandler
 						default: break;
 					}			
 					
-					if(event.entityPlayer.getCurrentEquippedItem().stackSize == 1)
+					if(itemInHand.stackSize == 1)
 						event.entityPlayer.setCurrentItemOrArmor(0, null);
 					else
-						event.entityPlayer.getCurrentEquippedItem().stackSize--;
+						itemInHand.stackSize--;
 				}
 			}
 			
-			if(event.entityPlayer.getCurrentEquippedItem().getItem() == Item.getItemFromBlock(Blocks.chest))
+			if(itemInHand.getItem() == Item.getItemFromBlock(Blocks.chest))
 			{
 				event.setCanceled(true);
 
-				if(event.entityPlayer.getCurrentEquippedItem().stackSize == 1)
+				if(itemInHand.stackSize == 1)
 					event.entityPlayer.setCurrentItemOrArmor(0, null);
 				else
-					event.entityPlayer.getCurrentEquippedItem().stackSize--;
+					itemInHand.stackSize--;
 			}
 		}
 	}
