@@ -16,8 +16,10 @@ Java 1.8.0
 2. Replace gradle in said SRC with 1.8 MDK
 3. Update said gradle to 3.0 with `./gradlew wrapper --gradle-version=3.0`
 4. Add required mod APIs (see [Adding mod APIs](#adding-mod-apis))
-5. `./gradlew build`
-6. You're golden.
+5. Setup workspace with `./gradlew setupDecompWorkspace`
+5.1. (Optional) Setup eclipse workspace with `./gradlew eclipse`
+6. `./gradlew build`
+7. You're golden.
 
 ## Adding mod APIs
 
