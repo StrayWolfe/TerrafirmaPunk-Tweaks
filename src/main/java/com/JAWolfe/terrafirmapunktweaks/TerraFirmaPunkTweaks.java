@@ -7,6 +7,7 @@ import com.JAWolfe.terrafirmapunktweaks.minetweaker.TFCTweaker;
 import com.JAWolfe.terrafirmapunktweaks.proxy.CommonProxy;
 import com.JAWolfe.terrafirmapunktweaks.reference.References;
 
+import boilerplate.common.IBoilerplateMod;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -15,10 +16,11 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = References.ModID, name = References.ModName, version = References.ModVersion, dependencies = References.ModDependencies)
-public class TerraFirmaPunkTweaks
+public class TerraFirmaPunkTweaks implements IBoilerplateMod
 {    			
 	@Mod.Instance(References.ModID)
 	public static TerraFirmaPunkTweaks instance;
@@ -30,11 +32,11 @@ public class TerraFirmaPunkTweaks
     public void preInit(FMLPreInitializationEvent event)
     {
     	ConfigHandler.init(event.getSuggestedConfigurationFile());
-		FMLCommonHandler.instance().bus().register(new ConfigHandler());
-		
-		proxy.registerFluids();
-		
-		TFPItems.initialise();
+	FMLCommonHandler.instance().bus().register(new ConfigHandler());
+	
+	proxy.registerFluids();
+	
+	TFPItems.initialise();
 		
     	TFPBlocks.initialise();
     	
@@ -42,7 +44,7 @@ public class TerraFirmaPunkTweaks
     }
     
     @EventHandler
-	public void initialize(FMLInitializationEvent event)
+	public void init(FMLInitializationEvent event)
 	{    	
     	RecipeTweaks.RecipeFixes();
     	
@@ -66,5 +68,53 @@ public class TerraFirmaPunkTweaks
     	TFCTweaker.postInit();
     	
     	RecipeTweaks.SC2RecipeTweaks();
+	}
+	
+	@Override
+	public Object getInstance()
+	{
+		return instance;
+	}
+
+	@Override
+	public CreativeTabs getCreativeTab()
+	{
+		return null;
+	}
+
+	@Override
+	public String getID()
+	{
+		return References.ModID;
+	}
+
+	@Override
+	public String getName()
+	{
+		return References.ModName;
+	}
+
+	@Override
+	public String getVersion()
+	{
+		return References.ModVersion;
+	}
+
+	@Override
+	public String getPrefix()
+	{
+		return References.PREFIX;
+	}
+
+	@Override
+	public String getClientProxyPath()
+	{
+		return References.CLIENT_PROXY_CLASS;
+	}
+
+	@Override
+	public String getCommonProxyPath()
+	{
+		return References.SERVER_PROXY_CLASS;
 	}
 }

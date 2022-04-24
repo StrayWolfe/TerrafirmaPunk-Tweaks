@@ -57,10 +57,10 @@ public class WAILAInfo implements IWailaDataProvider
 				currenttip.add(StatCollector.translateToLocal("gui.tfptweaks.watertank") + ": " + tag.getInteger("water") + " / " + ((TEBoiler)tileEntity).myTank.getCapacity());
 				currenttip.add(StatCollector.translateToLocal("gui.tfptweaks.steamtank") + ": " + tag.getInteger("steam") + " / " + ((TEBoiler)tileEntity).getCapacity());
 			}
-			else if (tileEntity != null && tileEntity instanceof TEFlashBoiler && ((TEFlashBoiler)tileEntity).hasMaster())
+			else if (tileEntity != null && tileEntity instanceof TEFlashBoiler && ((TEFlashBoiler)tileEntity).hasPrimary())
 			{
-				currenttip.add(StatCollector.translateToLocal("gui.tfptweaks.watertank") + ": " + ((TEFlashBoiler)tileEntity).getMasterTileEntity().getTank().getFluidAmount() + " / " + ((TEFlashBoiler)tileEntity).getMasterTileEntity().getTank().getCapacity());
-				currenttip.add(StatCollector.translateToLocal("gui.tfptweaks.steamtank") + ": "+ tag.getInteger("steam") + " / " + ((TEFlashBoiler)tileEntity).getMasterTileEntity().getCapacity());
+				currenttip.add(StatCollector.translateToLocal("gui.tfptweaks.watertank") + ": " + ((TEFlashBoiler)tileEntity).getPrimaryTileEntity().getTank().getFluidAmount() + " / " + ((TEFlashBoiler)tileEntity).getPrimaryTileEntity().getTank().getCapacity());
+				currenttip.add(StatCollector.translateToLocal("gui.tfptweaks.steamtank") + ": "+ tag.getInteger("steam") + " / " + ((TEFlashBoiler)tileEntity).getPrimaryTileEntity().getCapacity());
 			}
 		}
 		

@@ -5,6 +5,8 @@ public class References
 	public static final String ModID = "TerraFirmaPunkTweaks";
 	public static final String ModName = "TerraFirmaPunk Tweaks";
 	
+	public static final String PREFIX = "terrafirmapunkplus:";
+	
 	public static final String MODID_TFC = "terrafirmacraft";
 	public static final String MODNAME_TFC = "TerraFirmaCraft";
 	

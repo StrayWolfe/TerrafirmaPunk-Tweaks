@@ -204,7 +204,7 @@ public class TEFlashBoiler extends TileEntityFlashBoiler implements IFluidHandle
     }
 	
 	@Override
-	public TEFlashBoiler getMasterTileEntity() {
+	public TEFlashBoiler getPrimaryTileEntity() {
         int[][] cluster = getClusterCoords(getValidClusterFromMetadata());
         int x = cluster[0][0], y = cluster[0][1], z = cluster[0][2];
         TEFlashBoiler boiler = null;
