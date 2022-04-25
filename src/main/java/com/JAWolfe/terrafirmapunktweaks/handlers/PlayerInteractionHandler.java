@@ -89,10 +89,8 @@ public class PlayerInteractionHandler
 	{
 		if (event.entityPlayer.worldObj.isRemote)
 			return;
-
-		ItemStack itemInHand = event.entityPlayer.getCurrentEquippedItem();
 		
-		if(itemInHand == null)
+		if(event.entityPlayer.getCurrentEquippedItem() == null)
 			return;
 		
 		if(event.action == Action.RIGHT_CLICK_BLOCK && event.getResult() != Result.DENY)
@@ -124,15 +122,17 @@ public class PlayerInteractionHandler
 						event.entityPlayer.getCurrentEquippedItem().stackSize--;
 				}
 			}
-			
-			if(event.entityPlayer.getCurrentEquippedItem().getItem() == Item.getItemFromBlock(Blocks.chest))
+			if(event.entityPlayer.getCurrentEquippedItem() != null)
 			{
-				event.setCanceled(true);
+				if(event.entityPlayer.getCurrentEquippedItem().getItem() == Item.getItemFromBlock(Blocks.chest))
+				{
+					event.setCanceled(true);
 
-				if(event.entityPlayer.getCurrentEquippedItem().stackSize == 1)
-					event.entityPlayer.setCurrentItemOrArmor(0, null);
-				else
-					event.entityPlayer.getCurrentEquippedItem().stackSize--;
+					if(event.entityPlayer.getCurrentEquippedItem().stackSize == 1)
+						event.entityPlayer.setCurrentItemOrArmor(0, null);
+					else
+						event.entityPlayer.getCurrentEquippedItem().stackSize--;
+				}
 			}
 		}
 	}
